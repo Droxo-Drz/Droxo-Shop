@@ -1,0 +1,1568 @@
+:root {
+    --primary-bg: #0a0a0a;
+    --secondary-bg: #000000;
+    --card-bg: rgba(15, 15, 15, 0.85);
+    --card-border: rgba(0, 212, 255, 0.25);
+    --card-border-hover: #00d4ff;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-muted: #b0b0b0;
+    --accent-blue: #00d4ff;
+    --accent-purple: #9d4edd;
+    --accent-pink: #ff00ff;
+    --accent-blue-glow: rgba(0, 212, 255, 0.4);
+    --accent-purple-glow: rgba(157, 78, 221, 0.4);
+    --accent-pink-glow: rgba(255, 0, 255, 0.5);
+    --shadow-blue: rgba(0, 212, 255, 0.25);
+    --shadow-purple: rgba(157, 78, 221, 0.25);
+    --shadow-pink: rgba(255, 0, 255, 0.3);
+    --gradient-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    --gradient-pink: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    --whatsapp-color: #25D366;
+    --whatsapp-gradient: linear-gradient(135deg, #25D366, #128C7E);
+    --telegram-color: #0088cc;
+    --telegram-gradient: linear-gradient(135deg, #0088cc, #006699);
+    --glass-bg: rgba(20, 20, 20, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.header {
+    text-align: center;
+    padding: 4rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--accent-blue-glow) 0%, transparent 70%);
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.logo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.logo {
+    font-size: 4rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -2px;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: var(--gradient-glow);
+    filter: blur(25px);
+    opacity: 0.6;
+    z-index: 1;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.tagline {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 0.5rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.main-content {
+    min-height: calc(100vh - 400px);
+}
+
+.category-nav {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.category-tabs {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.875rem 1.75rem;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    font-family: 'Cairo', sans-serif;
+}
+
+.tab-btn:hover {
+    border-color: var(--accent-blue);
+    background: rgba(0, 212, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.tab-btn.active {
+    background: var(--gradient-primary);
+    color: var(--primary-bg);
+    border-color: transparent;
+    box-shadow: 0 0 20px var(--accent-blue-glow);
+    font-weight: 600;
+}
+
+.services-section {
+    padding: 2rem 0 0;
+    min-height: calc(100vh - 300px);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    animation: fadeIn 0.6s ease-out;
+    margin-bottom: 4rem;
+}
+
+.service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--accent-blue);
+    box-shadow: 0 20px 40px var(--shadow-blue);
+}
+
+.icon-wrapper {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1.5rem;
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid var(--card-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.service-card:hover .icon-wrapper {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    transform: scale(1.1);
+    box-shadow: 0 0 25px var(--accent-blue-glow);
+}
+
+.service-icon {
+    font-size: 3rem;
+    transition: transform 0.3s ease;
+}
+
+
+.service-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.service-hint {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 2;
+}
+
+/* Payment Methods Section - Glassmorphism Style - FIXED POSITIONING */
+.payment-section {
+    padding: 3rem 0;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.payment-glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 3rem 2rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-pink);
+    opacity: 0.8;
+}
+
+.payment-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.payment-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--gradient-pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px var(--accent-pink-glow);
+    margin-bottom: 0.5rem;
+    animation: neonGlow 2s ease-in-out infinite alternate;
+}
+
+.payment-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.payment-card {
+    background: rgba(20, 20, 20, 0.7);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-pink);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.payment-card:hover::before {
+    opacity: 1;
+}
+
+.payment-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    border-color: var(--accent-purple);
+    box-shadow: 0 15px 35px var(--shadow-purple);
+}
+
+.payment-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background: rgba(157, 78, 221, 0.1);
+    border: 2px solid var(--accent-purple);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.payment-card:hover .payment-icon-wrapper {
+    background: var(--gradient-pink);
+    border-color: transparent;
+    transform: scale(1.15) rotate(5deg);
+    box-shadow: 0 0 20px var(--accent-pink-glow);
+}
+
+.payment-icon {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.payment-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    position: relative;
+    z-index: 2;
+}
+
+.payment-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 2;
+}
+
+.price-section {
+    padding: 2rem 0 4rem;
+    min-height: calc(100vh - 200px);
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.75rem;
+    margin-bottom: 2.5rem;
+    color: var(--accent-blue);
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--accent-blue);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.back-btn:hover {
+    background: var(--accent-blue);
+    color: var(--primary-bg);
+    transform: translateX(-8px);
+    box-shadow: 0 0 20px var(--accent-blue-glow);
+}
+
+.back-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.price-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 3rem;
+    backdrop-filter: blur(15px);
+    animation: fadeIn 0.6s ease-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.price-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.service-icon-wrapper {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1.5rem;
+    background: rgba(157, 78, 221, 0.1);
+    border: 2px solid var(--accent-purple);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 25px var(--accent-purple-glow);
+}
+
+.service-icon {
+    font-size: 3.5rem;
+}
+
+.service-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 15px var(--accent-blue-glow);
+}
+
+.price-table-container {
+    overflow-x: auto;
+    margin-bottom: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+}
+
+.price-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.price-table thead {
+    background: var(--gradient-primary);
+}
+
+.price-table th {
+    text-align: left;
+    padding: 1.25rem 1.5rem;
+    font-weight: 700;
+    color: white;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-table td {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+}
+
+.price-table tbody tr:hover td {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.price-table td:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.price-table td:nth-child(2) {
+    text-align: center;
+    font-weight: 700;
+    color: var(--accent-purple);
+    font-size: 1.1rem;
+}
+
+.price-table td:last-child {
+    text-align: right;
+    font-weight: 700;
+    color: var(--accent-blue);
+    font-size: 1.1rem;
+}
+
+.order-section {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+}
+
+.order-instruction {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.order-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.order-btn {
+    padding: 1.25rem 2rem;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.order-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.order-btn:hover::before {
+    left: 100%;
+}
+
+.order-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.whatsapp-btn {
+    background: var(--whatsapp-gradient);
+}
+
+.whatsapp-btn:hover {
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+}
+
+.telegram-btn {
+    background: var(--telegram-gradient);
+}
+
+.telegram-btn:hover {
+    box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4);
+}
+
+.btn-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.footer {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2rem 0;
+    margin-top: 0;
+    border-top: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-text {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.store-name {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes neonGlow {
+    from {
+        text-shadow: 0 0 30px var(--accent-pink-glow);
+    }
+    to {
+        text-shadow: 0 0 40px var(--accent-pink-glow), 0 0 60px var(--accent-pink-glow);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        width: 100px; /* حجم أصغر للهواتف */
+    }
+}
+    .payment-title {
+        font-size: 2rem;
+    }
+    
+    .category-tabs {
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .service-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .payment-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+    }
+    
+    .order-buttons {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .order-btn {
+        width: 100%;
+    }
+    
+    .payment-subtitle {
+        position: static;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 2.5rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        margin-bottom: 2rem;
+    }
+    
+    .payment-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .payment-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .payment-icon-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .payment-icon {
+        font-size: 1.5rem;
+    }
+    
+    .order-btn {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+/* ==========================================
+   Droxo Shop - Individual Service Icon Styling
+   15 Separate & Independent Blocks - Zero Grouping
+   ========================================== */
+
+/* Base Icon Wrapper (Applied to all icons) */
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(157, 78, 221, 0.1);
+    border: 2px solid var(--accent-purple);
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* 1. FREE FIRE - Base Styles */
+.icon-freefire {
+    width: 116px !important;      /* تقليص العرض قليلاً ليتنفس الشعار داخل الدائرة */
+    height: 116px !important;     /* مساواة الارتفاع مع العرض لضمان أبعاد دائرية مثالية */
+    object-fit: contain;     /* يغطي المساحة كامل بدون تشويه الشعار */
+    object-position: center;  /* يضمن التمركز في الوسط هندسياً */
+    border-radius: 50%;
+    transform: translate(0px, 0px);
+}
+
+/* 1. FREE FIRE - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-freefire {
+        width: 116px !important;
+        height: 116px !important;
+        transform: translateY(-1px);
+    }
+}
+
+/* 1. FREE FIRE - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-freefire {
+        width: 55px;
+        height: 55px;
+        padding: 2px;
+    }
+}
+
+/* 2. EFOOTBALL - Base Styles */
+.icon-efootball {
+    width: 130px;
+    height: 1155px;
+    object-fit: contain;
+    object-position: 50% 52%;
+    padding: 3px 12px;
+}
+
+/* 2. EFOOTBALL - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-efootball {
+        width: 132px;
+        height: 1155px;
+        padding: 2px 10px;
+    }
+}
+
+/* 2. EFOOTBALL - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-efootball {
+        width: 132px;
+        height: 1155px;
+        padding: 2px 8px;
+    }
+}
+
+/* 3. DISCORD NITRO - Base Styles */
+.icon-discord-nitro {
+    width: 120px;
+    height: 125px;
+    object-fit: contain;
+    object-position: center -1%;
+    padding: 6px 4px;
+}
+
+/* 3. DISCORD NITRO - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-discord-nitro {
+        width: 120px;
+        height: 125px;
+        padding: 4px 2px;
+    }
+}
+
+/* 3. DISCORD NITRO - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-discord-nitro {
+        width: 120px;
+        height: 125px;
+        padding: 3px 2px;
+    }
+}
+
+/* 4. BINANCE USDT - Base Styles */
+.icon-binance-usdt {
+    width: 118px;
+    height: 118px;
+    object-fit: cover;
+    object-position: center;
+    padding: 0;
+}
+
+/* 4. BINANCE USDT - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-binance-usdt {
+        width: 118px;
+        height: 118px;
+        padding: 0;
+    }
+}
+
+/* 4. BINANCE USDT - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-binance-usdt {
+        width: 118px;
+        height: 118px;
+        padding: 0;
+    }
+}
+
+/* 5. GOOGLE PLAY - Base Styles */
+.icon-google-play {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    object-position: 50% 45%;
+    padding: 6px;
+}
+
+/* 5. GOOGLE PLAY - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-google-play {
+        width: 68px;
+        height: 68px;
+        padding: 4px;
+    }
+}
+
+/* 5. GOOGLE PLAY - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-google-play {
+        width: 58px;
+        height: 58px;
+        padding: 3px;
+    }
+}
+
+/* 6. EPIC GAMES - Base Styles */
+.icon-epic-games {
+    width: 155px;
+    height: 155px;
+    object-fit: contain;
+    object-position: center;
+    padding: 4px 14px;
+}
+
+/* 6. EPIC GAMES - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-epic-games {
+        width: 155px;
+        height: 155px;
+        padding: 2px 10px;
+    }
+}
+
+/* 6. EPIC GAMES - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-epic-games {
+        width: 155px;
+        height: 155px;
+        padding: 2px 8px;
+    }
+}
+
+/* 7. PUBG MOBILE - Base Styles */
+.icon-pubg-mobile {
+    width: 115px;
+    height: 115px;
+    object-fit: contain;
+    object-position: center;
+    padding: 3px 9px;
+}
+
+/* 7. PUBG MOBILE - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-pubg-mobile {
+        width: 70px;
+        height: 65px;
+        padding: 3px 8px;
+    }
+}
+
+/* 7. PUBG MOBILE - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-pubg-mobile {
+        width: 60px;
+        height: 55px;
+        padding: 2px 6px;
+    }
+}
+
+/* 8. PLAYSTATION - Base Styles */
+.icon-playstation {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    object-position: center;
+    padding: 5px;
+}
+
+/* 8. PLAYSTATION - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-playstation {
+        width: 65px;
+        height: 65px;
+        padding: 3px;
+    }
+}
+
+/* 8. PLAYSTATION - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-playstation {
+        width: 55px;
+        height: 55px;
+        padding: 2px;
+    }
+}
+
+/* 9. NETFLIX - Base Styles */
+.icon-netflix {
+    width: 88px;
+    height: 72px;
+    object-fit: contain;
+    object-position: 50% 48%;
+    padding: 3px 16px;
+}
+
+/* 9. NETFLIX - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-netflix {
+        width: 75px;
+        height: 62px;
+        padding: 2px 12px;
+    }
+}
+
+/* 9. NETFLIX - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-netflix {
+        width: 65px;
+        height: 52px;
+        padding: 2px 10px;
+    }
+}
+
+/* 10. SPOTIFY - Base Styles */
+.icon-spotify {
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+    object-position: center;
+    padding: 0;
+}
+
+/* 10. SPOTIFY - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-spotify {
+        width: 67px;
+        height: 67px;
+        padding: 0;
+    }
+}
+
+/* 10. SPOTIFY - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-spotify {
+        width: 57px;
+        height: 57px;
+        padding: 0;
+    }
+}
+
+/* 11. SNAP PLUS - Base Styles */
+.icon-snap-plus {
+    width: 75px;
+    height: 82px;
+    object-fit: contain;
+    object-position: center 48%;
+    padding: 5px 3px;
+}
+
+/* 11. SNAP PLUS - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-snap-plus {
+        width: 65px;
+        height: 70px;
+        padding: 4px 2px;
+    }
+}
+
+/* 11. SNAP PLUS - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-snap-plus {
+        width: 55px;
+        height: 60px;
+        padding: 3px 2px;
+    }
+}
+
+/* 12. SHAHID VIP - Base Styles */
+.icon-shahid-vip {
+    width: 83px;
+    height: 75px;
+    object-fit: contain;
+    object-position: center;
+    padding: 4px 11px;
+}
+
+/* 12. SHAHID VIP - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-shahid-vip {
+        width: 70px;
+        height: 65px;
+        padding: 3px 8px;
+    }
+}
+
+/* 12. SHAHID VIP - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-shahid-vip {
+        width: 60px;
+        height: 55px;
+        padding: 2px 6px;
+    }
+}
+
+/* 13. XBOX - Base Styles */
+.icon-xbox {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    object-position: center;
+    padding: 6px;
+}
+
+/* 13. XBOX - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-xbox {
+        width: 65px;
+        height: 65px;
+        padding: 4px;
+    }
+}
+
+/* 13. XBOX - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-xbox {
+        width: 55px;
+        height: 55px;
+        padding: 3px;
+    }
+}
+
+/* 14. WINDOWS ACTIVATION - Base Styles */
+.icon-windows-activation {
+    width: 76px;
+    height: 76px;
+    object-fit: contain;
+    object-position: center;
+    padding: 5px;
+}
+
+/* 14. WINDOWS ACTIVATION - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-windows-activation {
+        width: 65px;
+        height: 65px;
+        padding: 3px;
+    }
+}
+
+/* 14. WINDOWS ACTIVATION - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-windows-activation {
+        width: 55px;
+        height: 55px;
+        padding: 2px;
+    }
+}
+
+/* 15. STEAM - Base Styles */
+.icon-steam {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    object-position: center;
+    padding: 4px;
+}
+
+/* 15. STEAM - Tablet (768px) */
+@media (max-width: 768px) {
+    .icon-steam {
+        width: 68px;
+        height: 68px;
+        padding: 4px;
+    }
+}
+
+/* 15. STEAM - Mobile (480px) */
+@media (max-width: 480px) {
+    .icon-steam {
+        width: 58px;
+        height: 58px;
+        padding: 3px;
+    }
+}
+
+/* ==========================================
+   Hover Effects (Applied to all icons)
+   ========================================== */
+
+.icon-wrapper:hover .icon-freefire {
+    transform: scale(2.2);
+    transition: transform 2.3s ease;
+}
+
+.icon-wrapper:hover .icon-efootball {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-discord-nitro {
+    transform: scale(2.2);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-binance-usdt {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-google-play {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-epic-games {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-pubg-mobile {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-playstation {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-netflix {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-spotify {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-snap-plus {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-shahid-vip {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-xbox {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-windows-activation {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.icon-wrapper:hover .icon-steam {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+/* الكود المريgل لظهور الصورة 100% وبدون اختفاء */
+.inner-icon-custom {
+    width: 85px !important;
+    height: 85px !important;
+    max-width: 100% !important; /* تمنع الصورة من تجاوز الدائرة */
+    max-height: 100% !important;
+    flex-shrink: 0 !important;   /* تمنع المتصفح من سحق الصورة أو تصغيرها لـ 0 */
+    object-fit: cover !important; /* تخلي اللوغو يجي معمر وواضح */
+    border-radius: 50% !important;
+    display: block !important;
+}
+
+/* 🎯 تحكم مخصص ومضمون لـ فري فاير بالسيف عليها تهبط */
+#freefire-detail-img {
+    margin-top: 12px !important; /* إذا شفتها هبطت بزاف، نقص الرقم لـ 8px أو 6px */
+}
+
+/* 🎯 تحكم مخصص لبينانس */
+#binance-detail-img {
+    margin-top: 99px !important;
+}
+
+/* 🎯 تحكم مخصص لببجي */
+#pubg-detail-img {
+    margin-top: 10px !important;
+}
+
+/* الخلفية الكاملة لشاشة التحميل */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #06020b; /* أسود داكن جداً مائل للبنفسجي */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999; /* فوق كلش */
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+}
+
+/* حاوية العناصر */
+.neon-loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* سبينر النيون المضيء */
+.neon-spinner {
+    width: 70px;
+    height: 70px;
+    border: 3px solid transparent;
+    border-top: 3px solid #9d4ede; /* بنفسجي نيون */
+    border-right: 3px solid #b5179e; /* فوشيا مضيء */
+    border-radius: 50%;
+    animation: neon-spin 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    filter: drop-shadow(0 0 12px #9d4ede);
+}
+
+/* اسم المتجر بتأثير الإضاءة المشعة */
+.brand-glow {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 0 10px rgba(157, 78, 221, 0.6),
+                 0 0 20px rgba(157, 78, 221, 0.4),
+                 0 0 40px rgba(157, 78, 221, 0.2);
+    animation: text-pulse 2s ease-in-out infinite;
+}
+
+/* أنميشن الدوران السريع والسلس */
+@keyframes neon-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* أنميشن نبض النص */
+@keyframes text-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1.02); }
+}
+
+/* كلاس الاختفاء النظيف */
+#loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* تحكم في الحاوية (الغلاف) */
+.logo-wrapper {
+    display: flex;          /* باش نقدروا نجيبو اللوغو في الوسط */
+    justify-content: center; /* توسيط أفقي */
+    align-items: center;     /* توسيط عمودي */
+
+}
+
+/* تحكم في اللوغو اللي داخل هاد الغلاف */
+.logo-wrapper img {
+    width: 90px;           /* هنايا هو الصح: بدل هاد الرقم باش تصغر أو تكبر اللوغو */
+    height: auto;           /* يحافظ على أبعاد الصورة */
+    max-width: 90% ;        /* باش في التليفون ما يخرجش على الشاشة */
+    transition: 0.3s;       /* أنيميشن خفيفة */
+}
+
+/* ========================================================
+   🎯 تحكم مخصص لكل لوغو وحدو في الصفحة الرئيسية (Droxo Shop)
+   ======================================================== */
+
+/* 1. فري فاير (Free Fire) */
+[data-id="freefire"] img, .icon-freefire {
+    margin-top: 5px !important;   /* تهبيط / تصعيد عمودي */
+    transform: translateX(0px) !important; /* تدنية يمين (+) أو يسار (-) */
+}
+
+/* 2. ببجي موبايل (PUBG Mobile) */
+[data-id="pubgm"] img, .icon-pubg-mobile {
+    margin-top: 20px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 3. إي فوتبول (eFootball) */
+[data-id="efootball"] img, .icon-efootball {
+    margin-top: -20px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 4. ستيم (Steam) */
+[data-id="steam"] img, .icon-steam {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 5. إيبك جيمز (Epic Games) */
+[data-id="epicgames"] img, .epicgames-icon {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 6. إكس بوكس (Xbox) */
+[data-id="xbox"] img, .icon-xbox {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 7. بلايستيشن (PlayStation) */
+[data-id="playstation"] img, .icon-playstation {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 8. نتفليكس (Netflix) */
+[data-id="netflix"] img, .icon-netflix {
+    margin-top: 00px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 9. شاهد (Shahid VIP) */
+[data-id="shahid"] img, .icon-shahid-vip {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 10. سبوتيفاي (Spotify) */
+[data-id="spotify"] img, .icon-spotify {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 11. قوقل بلاي (Google Play) */
+[data-id="googleplay"] img, .icon-google-play {
+    margin-top: 00px !important;
+    transform: translateX(10px) !important;
+}
+
+/* 12. سناب شات (Snapchat) */
+[data-id="snapchat"] img, .icon-snapchat-plus {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 13. ديسكورد (Discord) */
+[data-id="discord"] img, .icon-discord-nitro {
+    margin-top: 00px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 14. ويندوز (Windows) */
+[data-id="windows"] img, .icon-windows-activation {
+    margin-top: 25px !important;
+    transform: translateX(0px) !important;
+}
+
+/* 15. بينانس (Binance USDT) */
+[data-id="binance"] img, .icon-binance-usdt {
+    margin-top: 0px !important;
+    transform: translateX(0px) !important;
+}
+/* هاد الكود يطبق غير على أيقونة سناب شات */
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.epicgames-icon {
+    width: 155px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-binance-usdt {
+    width: 140px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-snapchat-plus {
+    width: 185px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-steam {
+    width: 95px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-xbox {
+    width: 325px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-shahid-vip {
+    width: 95px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-spotify {
+    width: 165px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-netflix {
+    width: 105px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-discord-nitro {
+    width: 155px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-google-play {
+    width: 125px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+.icon-playstation {
+    width: 175px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
+    height: auto;            /* للمحافظة على أبعاد الصورة */
+    display: block;          /* لضمان تموضعها بشكل صحيح */
+    margin: 0 auto;          /* لجعلها في وسط الدائرة */
+    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
