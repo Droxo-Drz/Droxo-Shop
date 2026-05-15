@@ -1368,7 +1368,7 @@ body {
 
 /* تحكم في اللوغو اللي داخل هاد الغلاف */
 .logo-wrapper img {
-    width: 90px;           /* هنايا هو الصح: بدل هاد الرقم باش تصغر أو تكبر اللوغو */
+    width: 115px;           /* هنايا هو الصح: بدل هاد الرقم باش تصغر أو تكبر اللوغو */
     height: auto;           /* يحافظ على أبعاد الصورة */
     max-width: 90% ;        /* باش في التليفون ما يخرجش على الشاشة */
     transition: 0.3s;       /* أنيميشن خفيفة */
@@ -1565,4 +1565,59 @@ body {
     display: block;          /* لضمان تموضعها بشكل صحيح */
     margin: 0 auto;          /* لجعلها في وسط الدائرة */
     object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+}
+
+
+
+
+
+
+
+/* تنسيق الأيقونات الجديدة */
+.payment-icon-img {
+width: 100%;      /* تخلي الصورة تدي عرض الدائرة كامل */
+    height: 100%;     /* تخلي الصورة تدي طول الدائرة كامل */
+    object-fit: cover; /* هادي أهم وحدة: تخلي الصورة تعمر الدائرة بلا ما تخسر أبعادها */
+    display: block;
+    margin: 0 auto;
+}
+
+/* تأثير اللمعان للدائرة المحيطة بالأيقونة */
+.payment-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: rgba(168, 85, 247, 0.1); 
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    border-radius: 50%; /* هادي ترجعها دائرة */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    
+    /* الحل هنا */
+    overflow: hidden; /* أي حاجة تخرج على حدود الدائرة تمحيها */
+    position: relative;
+}
+
+/* تأثير عند تمرير الفأرة (Hover) */
+.payment-card:hover .payment-icon-wrapper {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+    transform: translateY(-5px);
+}
+
+.payment-icon-img {
+    width: 115%;          /* صغر القيمة هادي حتى تولي البطاقة لداخل وماتقيسش الحواف */
+    height: 115%;         /* خليها نفس القيمة */
+    object-fit: contain;  /* هادي تضمن بلي البطاقة تبان كاملة وماتتقطعش */
+    display: block;
+    margin: 0 auto;
+}
+
+.payment-icon-wrapper {
+    overflow: hidden;    /* هادي هي الصح: أي حاجة تخرج برا الدائرة تتخبى */
+    border-radius: 50%;  /* باش تبقى الدائرة مرسومة */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(168, 85, 247, 0.1); /* خلفية خفيفة تبين بلي راهي لداخل */
 }
