@@ -1620,3 +1620,51 @@ width: 100%;
     justify-content: center;
     background: rgba(168, 85, 247, 0.1); 
 }
+
+.app-download-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start; /* هادي هي اللي تدنيه لليمنة */
+    padding-right: 0px; /* شوية مسافة باش ما يلصقش في الحافة */
+}
+
+.android-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(168, 85, 247, 0.1); /* خلفية بنفسجية شفافة */
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid #A855F7;
+    border-radius: 12px;
+    transition: 0.3s all ease;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+}
+
+.android-btn i {
+    font-size: 28px;
+    color: #3DDC84; /* لون أندرويد الأخضر */
+}
+
+.btn-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.btn-text span {
+    font-size: 10px;
+    color: #ccc;
+}
+
+.btn-text strong {
+    font-size: 16px;
+}
+
+/* تحريك الزر عند الحط عليه بالفأرة */
+.android-btn:hover {
+    background: #A855F7;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+    transform: translateY(-3px);
+}
