@@ -589,3 +589,24 @@ window.addEventListener('load', () => {
         }, 500); 
     }
 });
+
+// هذا الرقم هو نسخة التطبيق الحالية اللي راك مخرجها للناس درك
+const currentVersion = "1.0"; 
+
+// رابط الملف اللي خدمناه درك في جيتهاب
+const versionUrl = "https://droxo-drz.github.io/Droxo-Shop/version.json";
+
+fetch(versionUrl)
+  .then(response => response.json())
+  .then(data => {
+    // إذا لقى رقم النسخة في جيتهاب يختلف عن النسخة الحالية
+    if (data.version !== currentVersion) {
+      
+      // يخرج تنبيه للزبون بلي كاين تحديث
+      let userChoice = confirm(`تحديث جديد واجد لمتجر Droxo (نسخة ${data.version})! حاب تحمله درك؟`);
+      if (userChoice) {
+          window.location.href = data.url; // يديه يحمل الـ APK الجديد ديراكت
+      }
+    }
+  })
+  .catch(err => console.log("خطأ في الاتصال بالسيرفر للتحقق من التحديثات"));
