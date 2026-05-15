@@ -1,26 +1,18 @@
-// ============================================================================
-// DROXO Digital Services Store - JavaScript
-// Fixed Version with Correct Layout & Updated Contact Details
-// ============================================================================
-
-// Configuration Settings - Updated Contact Details
 const CONFIG = {
     storeName: 'DROXO',
-    whatsappNumber: '213796569674', // Updated number
-    telegramUsername: 'Droxo_Dz', // Updated username
+    whatsappNumber: '213796569674',
+    telegramUsername: 'Droxo_Dz', 
     defaultMessage: 'Hello DROXO, I want to order'
 };
 
-// Complete Services Database - 15 Services including eFootball
 const SERVICES = [
-    // Gaming Services
         {
         
         id: 'freefire',
         name: 'Free Fire',
-        icon: '<img src="./Photo/freefire1.png" alt="Free Fire" class="icon-freefire">', // تأكد برك بلي هادي راهي تمشي برا
+        icon: '<img src="./Photo/freefire1.png" alt="Free Fire" class="icon-freefire">', 
         
-        // ⬇️ التعديل الصحيح والمطلوب هنا ⬇️
+
         detailIcon: './Photo/freefire1.png',
         category: 'gaming',
         description: 'Garena Free Fire Diamonds & Bundles',
@@ -40,7 +32,7 @@ const SERVICES = [
         id: 'pubgm',
         name: 'PUBG Mobile',
         icon: '<img src="Photo/pubg.webp" class="icon-pubg-mobile" alt="PUBG Mobile">',
-         detailIcon: './Photo/pubg.webp', // تأكد برك بلي هادي راهي تمشي برا
+         detailIcon: './Photo/pubg.webp', 
         category: 'gaming',
         description: 'PUBG Mobile UC - Unknown Cash',
         prices: [
@@ -58,7 +50,7 @@ const SERVICES = [
         id: 'efootball',
         name: 'eFootball',
         icon: '<img src="./Photo/efootball.webp" class="icon-efootball" alt="eFootball">',
-        detailIcon: './Photo/efootball.webp', // تأكد برك بلي هادي راهي تمشي برا
+        detailIcon: './Photo/efootball.webp', 
         category: 'gaming',
         description: 'eFootball Coins & Points',
         prices: [
@@ -140,7 +132,6 @@ const SERVICES = [
         ]
     },
     
-    // Streaming Services
     {
         id: 'netflix',
         name: 'Netflix',
@@ -184,7 +175,6 @@ const SERVICES = [
         ]
     },
     
-    // Digital Products
     {
         id: 'googleplay',
         name: 'Google Play',
@@ -239,7 +229,7 @@ const SERVICES = [
         ]
     },
     
-    // Crypto Services
+    
     {
         id: 'binance',
         name: 'Binance USDT',
@@ -255,7 +245,6 @@ const SERVICES = [
     }
 ];
 
-// DOM Elements Cache
 const elements = {
     servicesGrid: document.getElementById('servicesGrid'),
     servicesView: document.getElementById('servicesView'),
@@ -269,15 +258,12 @@ const elements = {
     telegramBtn: document.getElementById('telegramBtn')
 };
 
-// Application State
+
 const state = {
     currentCategory: 'all',
     currentService: null
 };
 
-// ============================================================================
-// Initialization
-// ============================================================================
 
 function initializeApp() {
     renderServices('all');
@@ -287,27 +273,20 @@ function initializeApp() {
     console.log('✈️ Telegram: ' + CONFIG.telegramUsername);
 }
 
-// ============================================================================
-// Event Listeners Setup
-// ============================================================================
 
 function setupEventListeners() {
-    // Category tabs
+
     elements.categoryTabs.forEach(tab => {
         tab.addEventListener('click', handleCategoryChange);
     });
     
-    // Back button
+
     elements.backBtn.addEventListener('click', showServicesView);
     
-    // Order buttons
+
     elements.whatsappBtn.addEventListener('click', () => openWhatsApp());
     elements.telegramBtn.addEventListener('click', () => openTelegram());
 }
-
-// ============================================================================
-// Category Filtering
-// ============================================================================
 
 function handleCategoryChange(event) {
     const category = event.target.dataset.category;
@@ -343,7 +322,7 @@ function renderServices(category) {
     const services = filterServices(category);
     const fragment = document.createDocumentFragment();
     
-    // Sort services alphabetically for better UX
+
     const sortedServices = [...services].sort((a, b) => a.name.localeCompare(b.name));
     
     elements.servicesGrid.innerHTML = '';
@@ -503,7 +482,7 @@ function openWhatsApp() {
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodedMessage}`;
     
-    // Track order attempt
+
     console.log(`📱 Opening WhatsApp for: ${serviceName} (Number: ${CONFIG.whatsappNumber})`);
     
     window.open(url, '_blank');
@@ -522,16 +501,13 @@ function openTelegram() {
     const encodedMessage = encodeURIComponent(message);
     const url = `https://t.me/${CONFIG.telegramUsername}?text=${encodedMessage}`;
     
-    // Track order attempt
+
     console.log(`✈️ Opening Telegram for: ${serviceName} (Username: ${CONFIG.telegramUsername})`);
     
     window.open(url, '_blank');
     showNotification(`Opening Telegram for ${serviceName}...`, 'success');
 }
 
-// ============================================================================
-// Utility Functions
-// ============================================================================
 
 function triggerAnimation(element) {
     element.classList.remove('fade-in');
@@ -568,10 +544,6 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// ============================================================================
-// Error Handling & Analytics
-// ============================================================================
-
 window.addEventListener('error', (event) => {
     console.error('❌ DROXO Store Error:', {
         message: event.error?.message,
@@ -584,42 +556,36 @@ window.addEventListener('unhandledrejection', (event) => {
     console.error('❌ Unhandled Promise Rejection:', event.reason);
 });
 
-// Track page views for analytics
+
 function trackPageView(pageName) {
     console.log(`📊 Page View: ${pageName}`);
-    // Add your analytics tracking here (Google Analytics, etc.)
 }
 
-// ============================================================================
-// Initialize on DOM Load
-// ============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
     trackPageView('Home');
 });
 
-// Handle page visibility changes
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
         console.log('👁️ DROXO Store is visible');
     }
 });
 
-// Export for module usage (optional)
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { SERVICES, CONFIG, initializeApp };
 }
-// إخفاء شاشة التحميل بمجرد ما تتشحن الصفحة كامل بالصور تاعها
+
 window.addEventListener('load', () => {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) {
-        // نزيدو الكلاس لي يدير الأنميشن تع الاختفاء بالسلاسة
+
         loadingScreen.classList.add('fade-out');
         
-        // نحوه تماماً من الـ DOM بعد ما تخلص الأنميشن باش ما يثقلش الصفحة
+
         setTimeout(() => {
             loadingScreen.remove();
-        }, 500); // 500 ملي ثانية هي نفس مدة الـ transition في الـ CSS
+        }, 500); 
     }
 });

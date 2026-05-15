@@ -1549,22 +1549,22 @@ body {
     object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
 }
 
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+
 .icon-google-play {
-    width: 125px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+    width: 125px !important;  
+    height: auto;           
+    display: block;        
+    margin: 0 auto;         
+    object-fit: contain;   
 }
 
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
+
 .icon-playstation {
-    width: 175px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
+    width: 175px !important;  
+    height: auto;            
+    display: block;          
+    margin: 0 auto;     
+    object-fit: contain;     
 }
 
 
@@ -1573,51 +1573,50 @@ body {
 
 
 
-/* تنسيق الأيقونات الجديدة */
+
 .payment-icon-img {
-width: 100%;      /* تخلي الصورة تدي عرض الدائرة كامل */
-    height: 100%;     /* تخلي الصورة تدي طول الدائرة كامل */
-    object-fit: cover; /* هادي أهم وحدة: تخلي الصورة تعمر الدائرة بلا ما تخسر أبعادها */
+width: 100%;      
+    height: 100%;     
+    object-fit: cover; 
     display: block;
     margin: 0 auto;
 }
 
-/* تأثير اللمعان للدائرة المحيطة بالأيقونة */
+  */
 .payment-icon-wrapper {
     width: 60px;
     height: 60px;
     background: rgba(168, 85, 247, 0.1); 
     border: 1px solid rgba(168, 85, 247, 0.4);
-    border-radius: 50%; /* هادي ترجعها دائرة */
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 10px;
     
-    /* الحل هنا */
-    overflow: hidden; /* أي حاجة تخرج على حدود الدائرة تمحيها */
+    overflow: hidden; 
     position: relative;
 }
 
-/* تأثير عند تمرير الفأرة (Hover) */
+
 .payment-card:hover .payment-icon-wrapper {
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
     transform: translateY(-5px);
 }
 
 .payment-icon-img {
-    width: 115%;          /* صغر القيمة هادي حتى تولي البطاقة لداخل وماتقيسش الحواف */
-    height: 115%;         /* خليها نفس القيمة */
-    object-fit: contain;  /* هادي تضمن بلي البطاقة تبان كاملة وماتتقطعش */
+    width: 115%;          
+    height: 115%;         
+    object-fit: contain;  
     display: block;
     margin: 0 auto;
 }
 
 .payment-icon-wrapper {
-    overflow: hidden;    /* هادي هي الصح: أي حاجة تخرج برا الدائرة تتخبى */
-    border-radius: 50%;  /* باش تبقى الدائرة مرسومة */
+    overflow: hidden;    
+    border-radius: 50%;  
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(168, 85, 247, 0.1); /* خلفية خفيفة تبين بلي راهي لداخل */
+    background: rgba(168, 85, 247, 0.1); 
 }

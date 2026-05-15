@@ -14,6 +14,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <link rel="manifest" href="manifest.json">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Droxo PWA Ready!'))
+        .catch(err => console.log('PWA Error', err));
+    });
+  }
+</script>
+
 </head>
 <body>
  <div id="loading-screen">
@@ -133,7 +146,7 @@
             </div>
         </section>
 
-        <!-- Price List View (Hidden by default) -->
+       
         <section id="priceView" class="price-section hidden">
             <div class="container">
                 <button id="backBtn" class="back-btn" aria-label="Back to home">
