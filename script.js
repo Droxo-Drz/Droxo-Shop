@@ -248,7 +248,7 @@ const SERVICES = [
         category: 'crypto',
         description: 'Binance USDT Cryptocurrency',
         prices: [
-            { package: '10 USDT', price: 1850, currency: 'DA' },
+            { package: '10 USDT', price: 3200, currency: 'DA' },
             { package: '25 USDT', price: 7200, currency: 'DA' },
             { package: '50 USDT', price: 15000, currency: 'DA' }
         ]
