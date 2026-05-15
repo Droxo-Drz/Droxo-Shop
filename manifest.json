@@ -1,19 +1,18 @@
 {
-  "name": "Droxo Store DZ",
+  "name": "Droxo Store",
   "short_name": "Droxo",
-  "description": "متجر دروكسو لشحن الألعاب والخدمات الرقمية في الجزائر",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#A855F7",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "Photo/My-Logo2.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "Photo/My-Logo2.png",
       "sizes": "512x512",
       "type": "image/png"
     }
