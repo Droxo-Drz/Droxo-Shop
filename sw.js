@@ -1,8 +1,10 @@
 const CACHE_NAME = 'droxo-cache-v1';
+// حط هنا غير الملفات اللي متأكد بلي كاينة وبنفس الحروف
 const assets = [
-  '/',
-  '/index.html',
-  '/style.css'
+  './',
+  './index.html',
+  './style.css',
+  './manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
