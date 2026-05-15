@@ -338,9 +338,6 @@ function filterServices(category) {
     return SERVICES.filter(service => service.category === category);
 }
 
-// ============================================================================
-// Services Rendering
-// ============================================================================
 
 function renderServices(category) {
     const services = filterServices(category);
@@ -358,7 +355,7 @@ function renderServices(category) {
     
     elements.servicesGrid.appendChild(fragment);
     
-    // Trigger animation
+
     triggerAnimation(elements.servicesGrid);
 }
 
@@ -382,76 +379,74 @@ function createServiceCard(service, index) {
     return card;
 }
 
-// ============================================================================
-// Price View Management
-// ============================================================================
+
 
 function showPriceView(service) {
     state.currentService = service;
     
     updatePriceView(service);
-    renderPriceTable(service.prices); // 🟢 زدنا هاد السطر باش يعمر الجدول بالأسعار ديراكت
+    renderPriceTable(service.prices);
     switchView('price');
   
     console.log(`📊 Viewing prices for: ${service.name}`);
 }
 
 function updatePriceView(service) {
-    // 1. طباعة الصورة والاسم بشكل عادي ونظيف
+  
     elements.serviceIcon.innerHTML = `<img src="${service.detailIcon}" class="inner-icon-custom" alt="${service.name}">`;    
     elements.serviceName.textContent = service.name;
 
-    // 2. التحكم في هبوط كل لوغو بالبيكسل على حساب الـ ID تاعك
+
     const imgElement = elements.serviceIcon.querySelector('.inner-icon-custom');
     if (imgElement) {
         switch (service.id) {
             case 'freefire':
-                imgElement.style.marginTop = '12px'; // هبط فري فاير
+                imgElement.style.marginTop = '12px'; 
                 break;
             case 'pubgm':
-                imgElement.style.marginTop = '8px';  // هبط ببجي موبايل
+                imgElement.style.marginTop = '8px'; 
                 break;
             case 'efootball':
-                imgElement.style.marginTop = '8px';  // هبط إي فوتبول
+                imgElement.style.marginTop = '8px'; 
                 break;
             case 'steam':
-                imgElement.style.marginTop = '10px'; // هبط ستيم
+                imgElement.style.marginTop = '10px'; 
                 break;
             case 'epicgames':
-                imgElement.style.marginTop = '10px'; // هبط إيبك جيمز
+                imgElement.style.marginTop = '10px'; 
                 break;
             case 'xbox':
-                imgElement.style.marginTop = '10px'; // هبط إكس بوكس
+                imgElement.style.marginTop = '10px'; 
                 break;
             case 'playstation':
-                imgElement.style.marginTop = '12px'; // هبط بلايستيشن
+                imgElement.style.marginTop = '12px';
                 break;
             case 'netflix':
-                imgElement.style.marginTop = '8px';  // هبط نتفليكس
+                imgElement.style.marginTop = '8px';  
                 break;
             case 'shahid':
-                imgElement.style.marginTop = '8px';  // هبط شاهد VIP
+                imgElement.style.marginTop = '8px';  
                 break;
             case 'spotify':
-                imgElement.style.marginTop = '8px';  // هبط سبوتيفاي
+                imgElement.style.marginTop = '8px'; 
                 break;
             case 'googleplay':
-                imgElement.style.marginTop = '10px'; // هبط قوقل بلاي
+                imgElement.style.marginTop = '10px';
                 break;
             case 'snapchat':
-                imgElement.style.marginTop = '6px';  // هبط سناب شات
+                imgElement.style.marginTop = '6px'; 
                 break;
             case 'discord':
-                imgElement.style.marginTop = '8px';  // هبط ديسكورد
+                imgElement.style.marginTop = '8px';  
                 break;
             case 'windows':
-                imgElement.style.marginTop = '10px'; // هبط ويندوز
+                imgElement.style.marginTop = '10px'; 
                 break;
             case 'binance':
-                imgElement.style.marginTop = '0px'; // هبط بينانس USDT
+                imgElement.style.marginTop = '0px';
                 break;
             default:
-                imgElement.style.marginTop = '0px';  // أي خدمة جديدة تزيدها مستقبلاً تجي في الوسط عادي
+                imgElement.style.marginTop = '0px';  
                 break;
         }
     }
@@ -485,7 +480,7 @@ function switchView(viewName) {
     if (viewName === 'price') {
         elements.servicesView.classList.add('hidden');
         elements.priceView.classList.remove('hidden');
-        // Scroll to top
+
         window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -495,10 +490,6 @@ function switchView(viewName) {
         elements.servicesView.classList.remove('hidden');
     }
 }
-
-// ============================================================================
-// Order Integration - WhatsApp & Telegram
-// ============================================================================
 
 function openWhatsApp() {
     if (!state.currentService) {
