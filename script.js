@@ -168,10 +168,10 @@ const SERVICES = [
         category: 'streaming',
         description: 'Spotify Premium Subscription',
         prices: [
-            { package: '10 USD', price: 00, currency: 'DA' },
-            { package: '30 USD', price: 00, currency: 'DA' },
-            { package: '12 USD', price: 00, currency: 'DA' },
-            { package: 'Premium', price: 00, currency: 'DA' }
+            { package: '10 USD', price: 0, currency: 'DA' },
+            { package: '30 USD', price: 0, currency: 'DA' },
+            { package: '12 USD', price: 0, currency: 'DA' },
+            { package: 'Premium', price: 0, currency: 'DA' }
         ]
     },
     
@@ -186,7 +186,7 @@ const SERVICES = [
             { package: '5 USD', price: 1600, currency: 'DA' },
             { package: '10 USD', price: 3200, currency: 'DA' },
             { package: '25 USD', price: 7500, currency: 'DA' },
-            { package: '50 USD', price: 14500, currency: 'DA' }
+            { package: '50 USD', price: 14500, currency: 'DA' },
             { package: '100 USD', price: 31000, currency: 'DA' }
         ]
     },
