@@ -74,11 +74,11 @@ const SERVICES = [
         category: 'gaming',
         description: 'Steam Wallet Gift Cards',
         prices: [
-            { package: '5 USD', price: 1400, currency: 'DA' },
-            { package: '10 USD', price: 2750, currency: 'DA' },
-            { package: '20 USD', price: 5400, currency: 'DA' },
-            { package: '50 USD', price: 13200, currency: 'DA' },
-            { package: '100 USD', price: 30000, currency: 'DA' }
+            { package: '5 USD', price: 1500, currency: 'DA' },
+            { package: '10 USD', price: 3200, currency: 'DA' },
+            { package: '20 USD', price: 7300, currency: 'DA' },
+            { package: '50 USD', price: 14000, currency: 'DA' },
+            { package: '100 USD', price: 29000, currency: 'DA' }
         ]
     },
    {
@@ -104,11 +104,11 @@ const SERVICES = [
         description: 'Xbox Gift Cards & Game Pass',
         prices: [
             { package: '5 USD Gift Card', price: 1700, currency: 'DA' },
-            { package: '10 USD Gift Card', price: 2900, currency: 'DA' },
+            { package: '10 USD Gift Card', price: 3000, currency: 'DA' },
             { package: '25 USD Gift Card', price: 7200, currency: 'DA' },
             { package: '50 USD Gift Card', price: 14000, currency: 'DA' },
-            { package: '100 USD Gift Card', price: 23000, currency: 'DA' },
-            { package: 'Game Pass Ultimate 1 Month', price: 4000, currency: 'DA' },
+            { package: '100 USD Gift Card', price: 28000, currency: 'DA' },
+            { package: 'Game Pass Ultimate 1 Month', price: 8500, currency: 'DA' },
             { package: 'Game Pass Ultimate 1 Month For PC', price: 4000, currency: 'DA' },
             { package: 'Game Pass Ultimate 3 Month For Console', price: 6300, currency: 'DA' },
             { package: 'Game Pass 3 Months essential', price: 6400, currency: 'DA' },
@@ -589,24 +589,3 @@ window.addEventListener('load', () => {
         }, 500); 
     }
 });
-
-// هذا الرقم هو نسخة التطبيق الحالية اللي راك مخرجها للناس درك
-const currentVersion = "1.0"; 
-
-// رابط الملف اللي خدمناه درك في جيتهاب
-const versionUrl = "https://droxo-drz.github.io/Droxo-Shop/version.json";
-
-fetch(versionUrl)
-  .then(response => response.json())
-  .then(data => {
-    // إذا لقى رقم النسخة في جيتهاب يختلف عن النسخة الحالية
-    if (data.version !== currentVersion) {
-      
-      // يخرج تنبيه للزبون بلي كاين تحديث
-      let userChoice = confirm(`تحديث جديد واجد لمتجر Droxo (نسخة ${data.version})! حاب تحمله درك؟`);
-      if (userChoice) {
-          window.location.href = data.url; // يديه يحمل الـ APK الجديد ديراكت
-      }
-    }
-  })
-  .catch(err => console.log("خطأ في الاتصال بالسيرفر للتحقق من التحديثات"));
