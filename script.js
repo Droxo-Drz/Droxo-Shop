@@ -141,7 +141,7 @@ const SERVICES = [
         description: 'Netflix Subscription Algeria',
         prices: [
             { package: '15 USD', price: 4800, currency: 'DA' },
-            { package: '20 USD', price: 5400, currency: 'DA' },
+            { package: '20 USD', price: 6000, currency: 'DA' },
             { package: '25 USD', price: 7200, currency: 'DA' },
             { package: '30 USD', price: 8600, currency: 'DA' }
         ]
@@ -155,9 +155,9 @@ const SERVICES = [
         description: 'Shahid VIP Subscription',
         prices: [
             { package: 'Shahid VIP 1 Month', price: 0, currency: 'DA' },
-            { package: 'Shahid VIP 3 Months', price: 0, currency: 'DA' },
+            { package: 'Shahid VIP 3 Months', price: 3500, currency: 'DA' },
             { package: 'Shahid VIP 6 Months', price: 0, currency: 'DA' },
-            { package: 'Shahid VIP 12 Months', price: 0, currency: 'DA' }
+            { package: 'Shahid VIP 12 Months', price: 9500, currency: 'DA' }
         ]
     },
     {
@@ -183,10 +183,11 @@ const SERVICES = [
         category: 'digital',
         description: 'Google Play Gift Cards',
         prices: [
-            { package: '5 USD', price: 1750, currency: 'DA' },
+            { package: '5 USD', price: 1600, currency: 'DA' },
             { package: '10 USD', price: 3200, currency: 'DA' },
-            { package: '25 USD', price: 7000, currency: 'DA' },
-            { package: '50 USD', price: 15000, currency: 'DA' }
+            { package: '25 USD', price: 7500, currency: 'DA' },
+            { package: '50 USD', price: 14500, currency: 'DA' }
+            { package: '100 USD', price: 31000, currency: 'DA' }
         ]
     },
     {
@@ -210,10 +211,9 @@ const SERVICES = [
         category: 'digital',
         description: 'Discord Nitro & Nitro Classic',
         prices: [
-            { package: 'Nitro - 1 Month', price: 2700, currency: 'DA' },
-            { package: 'Nitro - 3 Months', price: 7400, currency: 'DA' },
-            { package: 'Nitro Basic - 1 Month', price: 1000, currency: 'DA' },
-            { package: 'Nitro Classic - 12 Months', price: 23000, currency: 'DA' }
+            { package: 'Nitro - 1 Month', price: 3200, currency: 'DA' },
+            { package: 'Nitro Basic - 1 Month', price: 1900, currency: 'DA' },
+            { package: 'Nitro Classic - 12 Months', price: 26000, currency: 'DA' }
         ]
     },
     {
@@ -239,8 +239,8 @@ const SERVICES = [
         description: 'Binance USDT Cryptocurrency',
         prices: [
             { package: '10 USDT', price: 3200, currency: 'DA' },
-            { package: '25 USDT', price: 7200, currency: 'DA' },
-            { package: '50 USDT', price: 15000, currency: 'DA' }
+            { package: '25 USDT', price: 6000, currency: 'DA' },
+            { package: '50 USDT', price: 13500, currency: 'DA' }
         ]
     }
 ];
