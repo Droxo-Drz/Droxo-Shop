@@ -589,3 +589,23 @@ window.addEventListener('load', () => {
         }, 500); 
     }
 });
+
+// النسخة الحالية للتطبيق اللي راك مستعملها درك للتجربة
+const currentVersion = "1.0"; 
+
+// إضافة وقت عشوائي في آخر الرابط باش نخدعو الكاش والـ Service Worker
+const versionUrl = "https://droxo-drz.github.io/Droxo-Shop/version.json?t=" + new Date().getTime();
+
+fetch(versionUrl, { cache: "no-store" }) // إجبار المتصفح يجيب الملف الجديد ديراكت
+  .then(response => response.json())
+  .then(data => {
+    console.log("النسخة أونلاين:", data.version, "النسخة الحالية:", currentVersion);
+    
+    if (data.version !== currentVersion) {
+      let userChoice = confirm(`تحديث جديد واجد لمتجر Droxo (نسخة ${data.version})! حاب تحمله درك؟`);
+      if (userChoice) {
+          window.location.href = data.url;
+      }
+    }
+  })
+  .catch(err => console.log("خطأ في التحقق من التحديثات:", err));
