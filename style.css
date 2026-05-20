@@ -1,3 +1,80 @@
+/* الألوان الافتراضية للموقع (الوضع المظلم) */
+:root {
+    --bg-color: #0d0d1a;
+    --card-bg: #161630;
+    --border-color: #2d2d50;
+    --text-color: #ffffff;
+    --text-hint: #9ca3af;
+    --tab-btn-bg: #111122;
+}
+
+/* الألوان الجديدة كي يتحول الموقع للوضع المضيء */
+[data-theme="light"] {
+    --bg-color: #f3f4f6;          /* خلفية رمادي فاتح مريحة للعين */
+    --card-bg: #ffffff;          /* الكروت تولي بيضاء */
+    --border-color: #e5e7eb;      /* حواف الكروت خفيفة */
+    --text-color: #1f2937;        /* الكتابة تولي كحلة */
+    --text-hint: #6b7280;         /* الوصف يولي رمادي غامق */
+    --tab-btn-bg: #e5e7eb;       /* أزرار الأقسام تولي فاتحة */
+}
+
+/* تطبيق المتغيرات على الأقسام الأساسية (تأكد من ربطها في كودك) */
+body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.service-card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    /* خلي باقي الأكواد تاع الـ Padding والـ Border-radius كيما راهم */
+    transition: all 0.3s ease;
+}
+
+.service-name, h3 {
+    color: var(--text-color) !important;
+}
+
+.service-hint, p {
+    color: var(--text-hint) !important;
+}
+
+.service-hint {
+    color: var(--text-hint);
+}
+
+.tab-btn {
+    background: var(--tab-btn-bg) !important;
+    color: var(--text-color) !important;
+    /* خلي الـ border والـ padding القدام كيما راهم */
+}
+
+/* ستايل زر التبديل الفوقاني */
+.theme-toggle-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.theme-toggle-btn {
+    background: var(--card-bg);
+    border: 2px solid #a855f7;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    box-shadow: 0 0 15px #a855f7;
+    transform: scale(1.1);
+}
+
 :root {
     --primary-bg: #0a0a0a;
     --secondary-bg: #000000;
@@ -685,6 +762,7 @@ body {
         width: 100px; /* حجم أصغر للهواتف */
     }
 }
+
     .payment-title {
         font-size: 2rem;
     }
@@ -727,7 +805,7 @@ body {
         margin-top: 1rem;
         font-size: 0.9rem;
     }
-}
+
 
 @media (max-width: 480px) {
     .logo {
@@ -1667,4 +1745,408 @@ width: 100%;
     background: #A855F7;
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
     transform: translateY(-3px);
+}
+
+
+
+/* ستايل صندوق إضافة الرأي */
+.add-feedback-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 40px auto 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.add-feedback-box h3 {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.add-feedback-box input, 
+.add-feedback-box textarea, 
+.add-feedback-box select {
+    width: 100%;
+    background: var(--tab-btn-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.add-feedback-box input:focus, 
+.add-feedback-box textarea:focus, 
+.add-feedback-box select:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+}
+
+.rating-select {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.rating-select select {
+    width: auto;
+    cursor: pointer;
+}
+
+/* زر الإرسال */
+.submit-fb-btn {
+    background: linear-gradient(135deg, #a855f7, #701a75);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.submit-fb-btn:hover {
+    box-shadow: 0 0 15px #a855f7;
+    transform: translateY(-2px);
+}
+
+/* أنيميشن خفيفة للكرت الجديد كي يتزاد */
+.new-added-card {
+    animation: popIn 0.5s ease-out;
+    border-color: #a855f7 !important;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+
+/* الحاوية الأساسية لتنظيم الكروت */
+.payment-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 15px;
+    direction: rtl;
+}
+
+/* ديزاين الكروت العام */
+.payment-card {
+    background: rgba(20, 20, 20, 0.6);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    flex: 1;
+    min-width: 320px;
+    max-width: 420px;
+    transition: all 0.3s ease;
+}
+
+/* تأثير تحريك نيون خفيف عند تمرير الماوس */
+.payment-card:hover {
+    border-color: #00f2fe;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+/* تخصيص لون كرت RedotPay باللون الأحمر النيون الخاص ببراند تعهم */
+.payment-card.redotpay-card {
+    border-color: rgba(255, 74, 74, 0.2);
+}
+.payment-card.redotpay-card:hover {
+    border-color: #ff4a4a;
+    box-shadow: 0 0 15px rgba(255, 74, 74, 0.2);
+}
+
+.payment-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.payment-icon {
+    font-size: 24px;
+}
+
+.copy-box {
+    margin-bottom: 18px;
+}
+
+.box-label {
+    font-size: 13px;
+    color: #b3b3b3;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.input-group {
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.payment-card:not(.redotpay-card) .input-group:focus-within {
+    border-color: #00f2fe;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+.payment-card.redotpay-card .input-group:focus-within {
+    border-color: #ff4a4a;
+    box-shadow: 0 0 10px rgba(255, 74, 74, 0.3);
+}
+
+.input-group input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 15px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+/* زر النسخ والأنيميشن */
+.copy-btn {
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    padding: 0 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+/* زر نسخ ريدوت باي يميل للأحمر/البرتقالي */
+.redotpay-card .copy-btn {
+    background: linear-gradient(45deg, #ff4a4a, #ff7676);
+}
+
+.copy-btn:hover {
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+}
+.redotpay-card .copy-btn:hover {
+    box-shadow: 0 0 15px rgba(255, 74, 74, 0.5);
+}
+
+/* ستايل الزر المشترك كي يتنسخ بنجاح */
+.copy-btn.copied {
+    background: #00ff88 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.7) !important;
+    color: #000 !important;
+}
+
+
+
+.order-form-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+    direction: rtl;
+}
+.payment-card.order-card {
+    max-width: 100% !important;
+    border-color: rgba(0, 242, 254, 0.3);
+}
+.file-upload-group {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px dashed rgba(0, 242, 254, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.file-upload-group:hover {
+    border-color: #00f2fe;
+    background: rgba(0, 242, 254, 0.05);
+}
+.file-upload-group input[type="file"] {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.upload-icon { font-size: 28px; display: block; margin-bottom: 5px; }
+.upload-text { color: #aaa; font-size: 14px; }
+.file-preview {
+    margin-top: 10px;
+    color: #00ff88;
+    font-size: 13px;
+    font-weight: bold;
+}
+.submit-order-btn {
+    width: 100%;
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+.submit-order-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+    transform: translateY(-2px);
+}
+
+
+
+/* ستايل حاوية التتبع */
+.tracker-container {
+    background: rgba(20, 20, 35, 0.6);
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    backdrop-filter: blur(12px);
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 3rem auto;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] .tracker-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(157, 78, 221, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tracker-title {
+    color: #00f2fe;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+}
+
+[data-theme="light"] .tracker-title {
+    color: #9d4edd;
+    text-shadow: none;
+}
+
+.tracker-subtitle {
+    font-size: 0.9rem;
+    color: #b3b3b3;
+    margin-bottom: 1.5rem;
+}
+
+[data-theme="light"] .tracker-subtitle {
+    color: #555;
+}
+
+/* صندوق البحث */
+.tracker-search-box {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.tracker-search-box input {
+    flex: 1;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(10, 10, 20, 0.8);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+}
+
+.tracker-search-box input:focus {
+    border-color: #00f2fe;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+.track-btn {
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    color: white;
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.track-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+}
+
+/* كرت النتيجة */
+.tracker-result {
+    margin-top: 1.5rem;
+    animation: fadeIn 0.4s ease;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: right;
+    direction: rtl;
+}
+
+.result-card p {
+    margin: 0.6rem 0;
+    font-size: 1rem;
+}
+
+/* شارات الحالة (الـ Badges) */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+/* ألوان الحالات تلقائياً */
+.status-pending { background: #ffaa00; color: #000; }  /* قيد المراجعة */
+.status-processing { background: #00d4ff; color: #000; } /* جاري الشحن */
+.status-completed { background: #00ff66; color: #000; }  /* تم الشحن */
+
+.status-time {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px !important;
 }

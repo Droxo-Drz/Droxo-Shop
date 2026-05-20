@@ -44,6 +44,10 @@
 </script>
 
     <header class="header">
+        <div class="theme-toggle-wrapper">
+    <button id="themeToggle" class="theme-toggle-btn">
+        <span id="themeIcon">🌙</span> </button>
+</div>
     <div class="container">
         <div class="logo-wrapper">
             <img src="Photo/my-logo.png.png" alt="Droxo Owner" class="logo-img">
@@ -141,6 +145,7 @@
         </section>
 
         <!-- Price List View (Hidden by default) -->
+        
         <section id="priceView" class="price-section hidden">
             <div class="container">
                 <button id="backBtn" class="back-btn" aria-label="Back to home">
@@ -172,6 +177,139 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="payment-container">
+    
+    <div class="payment-card">
+        <div class="payment-header">
+            <span class="payment-icon">💳</span>
+            <h3>الدفع عبر الـ CCP / BaridiMob</h3>
+        </div>
+        
+        <div class="copy-box">
+            <span class="box-label">رقم الحساب (RIP):</span>
+            <div class="input-group">
+                <input type="text" id="ripNumber" value="007999990043848921" readonly>
+                <button class="copy-btn" onclick="copyText('ripNumber', this)">
+                    <span class="btn-text">نسخ</span>
+                    <span class="icon">📋</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="copy-box">
+            <span class="box-label">رقم الـ CCP والمفتاح:</span>
+            <div class="input-group">
+                <input type="text" id="ccpNumber" value="007999990043848921 Clé: 90" readonly>
+                <button class="copy-btn" onclick="copyText('ccpNumber', this)">
+                    <span class="btn-text">نسخ</span>
+                    <span class="icon">📋</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-card redotpay-card">
+        <div class="payment-header">
+            <span class="payment-icon redot-icon">🔴</span>
+            <h3>الدفع عبر RedotPay (Binance)</h3>
+        </div>
+        
+        <div class="copy-box">
+            <span class="box-label">رقم الحساب (RedotPay ID):</span>
+            <div class="input-group">
+                <input type="text" id="redotId" value="1579452021" readonly>
+                <button class="copy-btn" onclick="copyText('redotId', this)">
+                    <span class="btn-text">نسخ</span>
+                    <span class="icon">📋</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="copy-box">
+            <span class="box-label">نوع الحساب:</span>
+            <div class="input-group">
+                <input type="text" id="accountType" value="RedotPay Direct Transfer" readonly>
+                <button class="copy-btn" onclick="copyText('accountType', this)">
+                    <span class="btn-text">نسخ</span>
+                    <span class="icon">📋</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+<div class="order-form-container">
+    <div class="payment-card order-card">
+        <div class="payment-header">
+            <span class="payment-icon">🚀</span>
+            <h3>تأكيد الطلب وإرسال الوصل</h3>
+        </div>
+
+        <form id="orderForm">
+
+            <div class="input-group">
+    <label for="orderPackage" style="color: #00f2fe; display: block; margin-bottom: 5px; text-align: right;">اختر الباقة التي قمت بدفع ثمنها:</label>
+    <select id="orderPackage" required style="width: 100%; padding: 0.8rem; border-radius: 12px; background: rgba(10, 10, 20, 0.9); color: white; border: 1px solid rgba(0, 242, 254, 0.3); text-align: right; direction: rtl;">
+        <option value="">-- اختر الباقة --</option>
+    </select>
+</div>
+
+            <div class="copy-box">
+    <span class="box-label">المنتج المراد شحنه:</span>
+    <div class="input-group">
+        <input type="text" id="displayGameName" readonly style="color: #00f2fe; text-align: center;">
+    </div>
+</div>
+
+            <div class="copy-box">
+                <span class="box-label">معرف اللاعب (Player ID) أو الإيميل:</span>
+                <div class="input-group">
+                    <input type="text" id="orderPlayerId" placeholder="اكتب الـ ID هنا..." required style="text-align: right;">
+                </div>
+            </div>
+
+            <div class="copy-box">
+                <span class="box-label">ارفع لقطة شاشة لوصل الدفع (Capture):</span>
+                <div class="file-upload-group">
+                    <input type="file" id="receiptFile" accept="image/*" required>
+                    <label for="receiptFile" class="file-label">
+                        <span class="upload-icon">📁</span>
+                        <span class="upload-text">اختر صورة الوصل</span>
+                    </label>
+                </div>
+                <div id="filePreview" class="file-preview hidden"></div>
+            </div>
+
+            <button type="submit" class="submit-order-btn">
+                <span class="btn-text">تأكيد وشحن الطلب الآن 🔥</span>
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<div class="tracker-container">
+    <h3 class="tracker-title">🚥 تتبع حالة طلبك </h3>
+    <p class="tracker-subtitle">أدخل معرف اللاعب (ID) الخاص بك لمعرفة وضعية شحن طلبك فوراً</p>
+    
+    <div class="tracker-search-box">
+        <input type="text" id="trackPlayerId" placeholder="أدخل الـ ID هنا..." required>
+        <button id="btnTrackOrder" class="track-btn">
+            <span class="btn-text">بحث 🔍</span>
+        </button>
+    </div>
+
+    <div id="trackerResult" class="tracker-result hidden">
+        <div class="result-card">
+            <p>اسم اللعبة: <span id="resGameName">--</span></p>
+            <p>معرف اللاعب: <span id="resPlayerId">--</span></p>
+            <p>حالة الشحن حالياً: <span id="resStatus" class="status-badge">--</span></p>
+            <p class="status-time">آخر تحديث: <span id="resTime">--</span></p>
+        </div>
+    </div>
+</div>
+
+
+</div>
 
                     <div class="order-section">
                         <p class="order-instruction">Ready to order? Choose your preferred contact method</p>
@@ -216,6 +354,34 @@
         });
       }
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="script.js"></script>
 </body>
+
 </html>
+
+
+<div class="add-feedback-box">
+    <h3>شاركنا تجربتك مع DROXO المتجر متجرك! ✍️</h3>
+    <form id="feedbackForm">
+        <div class="form-row">
+            <input type="text" id="fbName" placeholder="إسمك الكامل" required>
+            <input type="text" id="fbCity" placeholder="الولاية (مثلاً: البليدة)" required>
+        </div>
+        
+        <div class="rating-select">
+            <span>تقييمك للمتجر:</span>
+            <select id="fbStars">
+                <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (ممتاز)</option>
+                <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (جيد جداً)</option>
+                <option value="⭐⭐⭐">⭐⭐⭐ (متوسط)</option>
+            </select>
+        </div>
+
+        <textarea id="fbText" rows="3" placeholder="اكتب رأيك هنا بكل صراحة..." required></textarea>
+        
+        <button type="submit" class="submit-fb-btn">إرسال الرأي وتحديث القائمة القائمة ✨</button>
+    </form>
+</div>
+
