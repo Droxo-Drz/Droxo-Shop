@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>DROXO - لوحة التحكم</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --bg: #0b0c10; --surface: #1f2833; --primary: #9d4edd; --text: #ffffff; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 20px; margin: 0; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: var(--surface); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .price-row { display: flex; gap: 10px; margin-bottom: 8px; }
+        input, select { background: #000; color: white; border: 1px solid #444; padding: 8px; border-radius: 6px; width: 100%; box-sizing: border-box; }
+        .hidden { display: none; }
+        .auth-box { max-width: 400px; margin: 100px auto; background: var(--surface); padding: 30px; border-radius: 12px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div id="authBox" class="auth-box">
+        <h2>قفل الأمان للمتجر 🔒</h2>
+        <input type="password" id="adminPass" placeholder="أدخل كلمة السر لدخول اللوحة..." style="margin-bottom: 15px; text-align: center;">
+        <button class="btn" onclick="checkAuth()">دخول</button>
+    </div>
+
+    <div id="adminContent" class="container hidden">
+        <header>
+            <h1>لوحة تحكم متجر DROXO 🛠️</h1>
+            <button class="btn" onclick="showAddServiceForm()">+ إضافة خدمة جديدة</button>
+        </header>
+
+        <div class="grid" id="servicesAdminGrid">
+            </div>
+    </div>
+
+<script>
+    // ⚠️ حط الـ Credentials تاعك تاع Supabase هنا
+    const SUPABASE_URL = "YOUR_SUPABASE_URL";
+    const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // كلمة السر اللي تدخل بيها للوحة (تقدر تبدلها كيما تحب)
+    const ADMIN_PASSWORD = "DROXO_ADMIN_2026"; 
+
+    function checkAuth() {
+        const pass = document.getElementById('adminPass').value;
+        if(pass === ADMIN_PASSWORD) {
+            document.getElementById('authBox').classList.add('hidden');
+            document.getElementById('adminContent').classList.remove('hidden');
+            loadDashboardData();
+        } else {
+            alert('كلمة السر خاطئة! خاطيك اللعب يا حميدان 🛑');
+        }
+    }
+
+    async function loadDashboardData() {
+        const adminGrid = document.getElementById('servicesAdminGrid');
+        adminGrid.innerHTML = '<p>جاري تحميل البيانات...</p>';
+
+        // جلب الخدمات والأسعار من السيرفر
+        let { data: services } = await _supabase.from('services').select('*').order('name');
+        let { data: prices } = await _supabase.from('prices').select('*');
+
+        adminGrid.innerHTML = '';
+
+        services.forEach(service => {
+            const servicePrices = prices.filter(p => p.service_id === service.id);
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            let pricesHTML = '';
+            servicePrices.forEach(p => {
+                pricesHTML += `
+                    <div class="price-row" id="p-row-${p.id}">
+                        <input type="text" value="${p.package}" onchange="updatePriceField(${p.id}, 'package', this.value)">
+                        <input type="number" value="${p.price}" style="width: 90px;" onchange="updatePriceField(${p.id}, 'price', this.value)">
+                        <button style="background: red; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="deletePriceRow(${p.id})">X</button>
+                    </div>`;
+            });
+
+            card.innerHTML = `
+                <h3>${service.name} (${service.category})</h3>
+                <p style="font-size:12px; color:#aaa;">ID: ${service.id}</p>
+                <div id="prices-list-${service.id}">
+                    ${pricesHTML}
+                </div>
+                <button class="btn" style="background:#444; width:100%; margin-top:10px; font-size:12px;" onclick="addPriceRow('${service.id}')">+ زيادة باقة</button>
+                <button class="btn" style="background:#d90429; width:100%; margin-top:5px; font-size:12px;" onclick="deleteService('${service.id}')">حذف الخدمة كاملة</button>
+            `;
+            adminGrid.appendChild(card);
+        });
+    }
+
+    // دالة تحديث السعر تلقائياً في السيرفر عند التغيير في الخانة
+    async function updatePriceField(id, field, value) {
+        const updateData = {};
+        updateData[field] = field === 'price' ? parseInt(value) : value;
+        await _supabase.from('prices').update(updateData).eq('id', id);
+        console.log(`✅ تم تحديث ${field} للباقة رقم ${id}`);
+    }
+
+    // إضافة سطر سعر جديد للعبة
+    async function addPriceRow(serviceId) {
+        await _supabase.from('prices').insert([{ service_id: serviceId, package: 'باقة جديدة', price: 0 }]);
+        loadDashboardData(); // إعادة التحميل لتحديث الواجهة
+    }
+
+    // حذف سطر سعر
+    async function deletePriceRow(id) {
+        if(confirm('حاب تحذف هاذ الباقة؟')) {
+            await _supabase.from('prices').delete().eq('id', id);
+            loadDashboardData();
+        }
+    }
+
+    // حذف لعبة كاملة
+    async function deleteService(id) {
+        if(confirm('كليت عقلك؟ راح تحذف الخدمة بڤاع أسعارها ديراكت!')) {
+            await _supabase.from('services').delete().eq('id', id);
+            loadDashboardData();
+        }
+    }
+
+    // دالة سريعة لإضافة خدمة جديدة بالكامل
+    async function showAddServiceForm() {
+        const name = prompt('اسم الخدمة (مثال: Free Fire):');
+        if(!name) return;
+        const id = name.toLowerCase().replace(/\s+/g, '');
+        const category = prompt('الصنف (gaming, streaming, digital, crypto):', 'gaming');
+        const description = prompt('الوصف:');
+        
+        await _supabase.from('services').insert([{
+            id, name, category, description,
+            icon: `<img src="./Photo/${id}.png" class="icon-${id}">`,
+            detail_icon: `./Photo/${id}.png`
+        }]);
+        loadDashboardData();
+    }
+</script>
+</body>
+</html>
+
+
+<button class="btn" style="background: #2a9d8f;" onclick="uploadOldDataToServer()">📤 ارفع أسلافي (نقل الأسعار الحالية للـ Database)</button>

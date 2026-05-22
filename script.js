@@ -9,17 +9,18 @@ const CONFIG = {
     defaultMessage: 'Hello DROXO, I want to order'
 };
 
-const SERVICES = [
-        {
-        
-        id: 'freefire',
-        name: 'Free Fire',
-        icon: '<img src="./Photo/freefire1.png" alt="Free Fire" class="icon-freefire">', 
-        
+// حط الـ Credentials تاعك هنا
+const SUPABASE_URL = "https://btxmvkdlxcbnqvlcuxzb.supabase.co";
+const SUPABASE_KEY = "sb_publishable_oKG9Cc_JAtKGbVnq-ep07g_LpLdLCiw";
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        detailIcon: './Photo/freefire1.png',
-        category: 'gaming',
-        description: 'Garena Free Fire Diamonds & Bundles',
+const ADMIN_PASSWORD = "DROXO_ADMIN_2026"; 
+
+// هاوليك الـ Array تاعك الحالي حطيناه هنا باش نرفعوه أوتوماتيكياً
+const OLD_SERVICES_DATA = [
+    {
+        id: 'freefire', name: 'Free Fire', category: 'gaming', description: 'Garena Free Fire Diamonds & Bundles',
+        icon: '<img src="./Photo/freefire1.png" alt="Free Fire" class="icon-freefire">', detailIcon: './Photo/freefire1.png',
         prices: [
             { package: '100 Diamonds', price: 300, currency: 'DA' },
             { package: '210 Diamonds', price: 550, currency: 'DA' },
@@ -28,17 +29,12 @@ const SERVICES = [
             { package: '1060 Diamonds', price: 2200, currency: 'DA' },
             { package: '2180 Diamonds', price: 4400, currency: 'DA' },
             { package: '5600 Diamonds', price: 11000, currency: 'DA' },
-            { package: '11500 Diamonds', price: 21500, currency: 'DA' },
+            { package: '11500 Diamonds', price: 21500, currency: 'DA' }
         ]
     },
-        
     {
-        id: 'pubgm',
-        name: 'PUBG Mobile',
-        icon: '<img src="Photo/pubg.webp" class="icon-pubg-mobile" alt="PUBG Mobile">',
-         detailIcon: './Photo/pubg.webp', 
-        category: 'gaming',
-        description: 'PUBG Mobile UC - Unknown Cash',
+        id: 'pubgm', name: 'PUBG Mobile', category: 'gaming', description: 'PUBG Mobile UC - Unknown Cash',
+        icon: '<img src="Photo/pubg.webp" class="icon-pubg-mobile" alt="PUBG Mobile">', detailIcon: './Photo/pubg.webp', 
         prices: [
             { package: '60 UC', price: 300, currency: 'DA' },
             { package: '325 UC', price: 1200, currency: 'DA' },
@@ -51,12 +47,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'efootball',
-        name: 'eFootball',
-        icon: '<img src="./Photo/efootball.webp" class="icon-efootball" alt="eFootball">',
-        detailIcon: './Photo/efootball.webp', 
-        category: 'gaming',
-        description: 'eFootball Coins & Points',
+        id: 'efootball', name: 'eFootball', category: 'gaming', description: 'eFootball Coins & Points',
+        icon: '<img src="./Photo/efootball.webp" class="icon-efootball" alt="eFootball">', detailIcon: './Photo/efootball.webp', 
         prices: [
             { package: '137 eFootball Coins', price: 350, currency: 'DA' },
             { package: '315 eFootball Coins', price: 780, currency: 'DA' },
@@ -71,12 +63,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'steam',
-        name: 'Steam',
-        icon: '<img src="./Photo/steam-Logo.webp" class="icon-steam" alt="Steam">',
-         detailIcon: './Photo/steam-Logo.webp',
-        category: 'gaming',
-        description: 'Steam Wallet Gift Cards',
+        id: 'steam', name: 'Steam', category: 'gaming', description: 'Steam Wallet Gift Cards',
+        icon: '<img src="./Photo/steam-Logo.webp" class="icon-steam" alt="Steam">', detailIcon: './Photo/steam-Logo.webp',
         prices: [
             { package: '5 USD', price: 1500, currency: 'DA' },
             { package: '10 USD', price: 3200, currency: 'DA' },
@@ -85,13 +73,9 @@ const SERVICES = [
             { package: '100 USD', price: 29000, currency: 'DA' }
         ]
     },
-   {
-        id: 'epicgames',
-        name: 'Epic Games',
-        icon: '<img src="./Photo/epicgames.webp" class="epicgames-icon" alt="Steam">',
-        detailIcon: './Photo/epicgames.webp',
-        category: 'gaming',
-        description: 'Epic Games Store V-Bucks & Credits',
+    {
+        id: 'epicgames', name: 'Epic Games', category: 'gaming', description: 'Epic Games Store V-Bucks & Credits',
+        icon: '<img src="./Photo/epicgames.webp" class="epicgames-icon" alt="Epic Games">', detailIcon: './Photo/epicgames.webp',
         prices: [
             { package: '1000 V-Bucks', price: 6700, currency: 'DA' },
             { package: '2800 V-Bucks', price: 12000, currency: 'DA' },
@@ -100,12 +84,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'xbox',
-        name: 'Xbox',
-        icon: '<img src="./Photo/xbox-logo.webp" class="icon-xbox" alt="Xbox">',
-        detailIcon: './Photo/xbox-logo.webp',
-        category: 'gaming',
-        description: 'Xbox Gift Cards & Game Pass',
+        id: 'xbox', name: 'Xbox', category: 'gaming', description: 'Xbox Gift Cards & Game Pass',
+        icon: '<img src="./Photo/xbox-logo.webp" class="icon-xbox" alt="Xbox">', detailIcon: './Photo/xbox-logo.webp',
         prices: [
             { package: '5 USD Gift Card', price: 1700, currency: 'DA' },
             { package: '10 USD Gift Card', price: 3000, currency: 'DA' },
@@ -120,12 +100,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'playstation',
-        name: 'PlayStation',
-        icon: '<img src="./Photo/playstation-3.png" class="icon-playstation" alt="PlayStation">',
-        detailIcon: './Photo/playstation-3.png',
-        category: 'gaming',
-        description: 'PSN Gift Cards & PlayStation Plus',
+        id: 'playstation', name: 'PlayStation', category: 'gaming', description: 'PSN Gift Cards & PlayStation Plus',
+        icon: '<img src="./Photo/playstation-3.png" class="icon-playstation" alt="PlayStation">', detailIcon: './Photo/playstation-3.png',
         prices: [
             { package: '10 USD Gift Card', price: 3500, currency: 'DA' },
             { package: '25 USD Gift Card', price: 7500, currency: 'DA' },
@@ -135,14 +111,9 @@ const SERVICES = [
             { package: 'PS Plus 12 Months', price: 18000, currency: 'DA' }
         ]
     },
-    
     {
-        id: 'netflix',
-        name: 'Netflix',
-        icon: '<img src="./Photo/netflix-logo.png" class="icon-netflix" alt="Netflix">',
-        detailIcon: './Photo/netflix-logo.png',
-        category: 'streaming',
-        description: 'Netflix Subscription Algeria',
+        id: 'netflix', name: 'Netflix', category: 'streaming', description: 'Netflix Subscription Algeria',
+        icon: '<img src="./Photo/netflix-logo.png" class="icon-netflix" alt="Netflix">', detailIcon: './Photo/netflix-logo.png',
         prices: [
             { package: '15 USD', price: 4800, currency: 'DA' },
             { package: '20 USD', price: 6000, currency: 'DA' },
@@ -151,12 +122,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'shahid',
-        name: 'Shahid VIP',
-        icon: '<img src="./Photo/shahid.png" class="icon-shahid-vip" alt="Shahid VIP">',
-        detailIcon: './Photo/shahid.png',
-        category: 'streaming',
-        description: 'Shahid VIP Subscription',
+        id: 'shahid', name: 'Shahid VIP', category: 'streaming', description: 'Shahid VIP Subscription',
+        icon: '<img src="./Photo/shahid.png" class="icon-shahid-vip" alt="Shahid VIP">', detailIcon: './Photo/shahid.png',
         prices: [
             { package: 'Shahid VIP 1 Month', price: 0, currency: 'DA' },
             { package: 'Shahid VIP 3 Months', price: 3500, currency: 'DA' },
@@ -165,12 +132,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'spotify',
-        name: 'Spotify',
-        icon: '<img src="./Photo/spotify.jpg" class="icon-spotify" alt="Spotify">',
-        detailIcon: './Photo/spotify.jpg',
-        category: 'streaming',
-        description: 'Spotify Premium Subscription',
+        id: 'spotify', name: 'Spotify', category: 'streaming', description: 'Spotify Premium Subscription',
+        icon: '<img src="./Photo/spotify.jpg" class="icon-spotify" alt="Spotify">', detailIcon: './Photo/spotify.jpg',
         prices: [
             { package: '10 USD', price: 0, currency: 'DA' },
             { package: '30 USD', price: 0, currency: 'DA' },
@@ -178,14 +141,9 @@ const SERVICES = [
             { package: 'Premium', price: 0, currency: 'DA' }
         ]
     },
-    
     {
-        id: 'googleplay',
-        name: 'Google Play',
-        icon: '<img src="./Photo/google-play.jpg" class="icon-google-play" alt="Google Play">',
-        detailIcon: './Photo/google-play.jpg',
-        category: 'digital',
-        description: 'Google Play Gift Cards',
+        id: 'googleplay', name: 'Google Play', category: 'digital', description: 'Google Play Gift Cards',
+        icon: '<img src="./Photo/google-play.jpg" class="icon-google-play" alt="Google Play">', detailIcon: './Photo/google-play.jpg',
         prices: [
             { package: '5 USD', price: 1600, currency: 'DA' },
             { package: '10 USD', price: 3200, currency: 'DA' },
@@ -195,12 +153,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'snapchat',
-        name: 'Snapchat Plus',
-        icon: '<img src="./Photo/snapchat.jpg" class="icon-snapchat-plus" alt="Snapchat Plus">',
-        detailIcon: './Photo/snapchat.jpg',
-        category: 'digital',
-        description: 'Snapchat Plus Subscription',
+        id: 'snapchat', name: 'Snapchat Plus', category: 'digital', description: 'Snapchat Plus Subscription',
+        icon: '<img src="./Photo/snapchat.jpg" class="icon-snapchat-plus" alt="Snapchat Plus">', detailIcon: './Photo/snapchat.jpg',
         prices: [
             { package: 'Snapchat Plus 1 Month', price: 0, currency: 'DA' },
             { package: 'Snapchat Plus 6 Months', price: 0, currency: 'DA' },
@@ -208,12 +162,8 @@ const SERVICES = [
         ]
     },
     {
-        id: 'discord',
-        name: 'Discord Nitro',
-        icon: '<img src="./Photo/discord-logo.png" class="icon-discord-nitro" alt="Discord Nitro">',
-        detailIcon: './Photo/discord-logo.png',
-        category: 'digital',
-        description: 'Discord Nitro & Nitro Classic',
+        id: 'discord', name: 'Discord Nitro', category: 'digital', description: 'Discord Nitro & Nitro Classic',
+        icon: '<img src="./Photo/discord-logo.png" class="icon-discord-nitro" alt="Discord Nitro">', detailIcon: './Photo/discord-logo.png',
         prices: [
             { package: 'Nitro - 1 Month', price: 3200, currency: 'DA' },
             { package: 'Nitro Basic - 1 Month', price: 1900, currency: 'DA' },
@@ -221,26 +171,16 @@ const SERVICES = [
         ]
     },
     {
-        id: 'windows',
-        name: 'Windows Activation',
-        icon: '<img src="./Photo/windows-logo.png" class="icon-windows-activation" alt="Windows Activation">',
-        detailIcon: './Photo/windows-logo.png',
-        category: 'digital',
-        description: 'Windows Activation Codes',
+        id: 'windows', name: 'Windows Activation', category: 'digital', description: 'Windows Activation Codes',
+        icon: '<img src="./Photo/windows-logo.png" class="icon-windows-activation" alt="Windows Activation">', detailIcon: './Photo/windows-logo.png',
         prices: [
             { package: 'Windows 11 Pro', price: 2900, currency: 'DA' },
             { package: 'Windows 11 Home', price: 3100, currency: 'DA' }
         ]
     },
-    
-    
     {
-        id: 'binance',
-        name: 'Binance USDT',
-        icon: '<img src="./Photo/logo-binance.png" class="icon-binance-usdt" alt="Binance USDT">',
-        detailIcon: './Photo/logo-binance.png',
-        category: 'crypto',
-        description: 'Binance USDT Cryptocurrency',
+        id: 'binance', name: 'Binance USDT', category: 'crypto', description: 'Binance USDT Cryptocurrency',
+        icon: '<img src="./Photo/logo-binance.png" class="icon-binance-usdt" alt="Binance USDT">', detailIcon: './Photo/logo-binance.png',
         prices: [
             { package: '10 USDT', price: 3200, currency: 'DA' },
             { package: '25 USDT', price: 6000, currency: 'DA' },
@@ -248,6 +188,40 @@ const SERVICES = [
         ]
     }
 ];
+
+// 🚀 هاذي هي الدالة السحرية اللي ترفعلهم كامل في ثانية
+async function uploadOldDataToServer() {
+    if(!confirm("حاب ترفع ڤاع الأسعار والخدمات الحالية لقاعدة البيانات؟")) return;
+    
+    alert("جاري الرفع... ما تغلقش الصفحة.");
+    
+    for (const service of OLD_SERVICES_DATA) {
+        // 1. رفع الخدمة أولاً
+        await _supabase.from('services').insert([{
+            id: service.id,
+            name: service.name,
+            category: service.category,
+            description: service.description,
+            icon: service.icon,
+            detail_icon: service.detailIcon
+        }]);
+        
+        // 2. رفع الأسعار المرتبطة بها
+        const formatPrices = service.prices.map(p => ({
+            service_id: service.id,
+            package: p.package,
+            price: p.price,
+            currency: p.currency
+        }));
+        
+        await _supabase.from('prices').insert(formatPrices);
+    }
+    
+    alert("⚡ تم بنجاح! ڤاع الألعاب والأسعار راهي درك أونلاين في الـ Database.");
+    loadDashboardData(); // تحديث اللوحة ديركت
+}
+
+// ... كود بقية الدوال (checkAuth, loadDashboardData...) يبقى كيما راهو
 
 const elements = {
     servicesGrid: document.getElementById('servicesGrid'),
