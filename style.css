@@ -1,2152 +1,863 @@
-/* الألوان الافتراضية للموقع (الوضع المظلم) */
-:root {
-    --bg-color: #0d0d1a;
-    --card-bg: #161630;
-    --border-color: #2d2d50;
-    --text-color: #ffffff;
-    --text-hint: #9ca3af;
-    --tab-btn-bg: #111122;
-}
-
-/* الألوان الجديدة كي يتحول الموقع للوضع المضيء */
-[data-theme="light"] {
-    --bg-color: #f3f4f6;          /* خلفية رمادي فاتح مريحة للعين */
-    --card-bg: #ffffff;          /* الكروت تولي بيضاء */
-    --border-color: #e5e7eb;      /* حواف الكروت خفيفة */
-    --text-color: #1f2937;        /* الكتابة تولي كحلة */
-    --text-hint: #6b7280;         /* الوصف يولي رمادي غامق */
-    --tab-btn-bg: #e5e7eb;       /* أزرار الأقسام تولي فاتحة */
-}
-
-/* تطبيق المتغيرات على الأقسام الأساسية (تأكد من ربطها في كودك) */
-body {
-    background-color: var(--bg-color) !important;
-    color: var(--text-color) !important;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.service-card {
-    background: var(--card-bg) !important;
-    border: 1px solid var(--border-color) !important;
-    /* خلي باقي الأكواد تاع الـ Padding والـ Border-radius كيما راهم */
-    transition: all 0.3s ease;
-}
-
-.service-name, h3 {
-    color: var(--text-color) !important;
-}
-
-.service-hint, p {
-    color: var(--text-hint) !important;
-}
-
-.service-hint {
-    color: var(--text-hint);
-}
-
-.tab-btn {
-    background: var(--tab-btn-bg) !important;
-    color: var(--text-color) !important;
-    /* خلي الـ border والـ padding القدام كيما راهم */
-}
-
-/* ستايل زر التبديل الفوقاني */
-.theme-toggle-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    padding: 15px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.theme-toggle-btn {
-    background: var(--card-bg);
-    border: 2px solid #a855f7;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
-    transition: all 0.3s ease;
-}
-
-.theme-toggle-btn:hover {
-    box-shadow: 0 0 15px #a855f7;
-    transform: scale(1.1);
-}
+/* ==========================================================================
+   DROXO SHOP - STYLESHEET
+   Premium Dark Gaming Theme with Neon Accents
+   ========================================================================== */
 
 :root {
-    --primary-bg: #0a0a0a;
-    --secondary-bg: #000000;
-    --card-bg: rgba(15, 15, 15, 0.85);
-    --card-border: rgba(0, 212, 255, 0.25);
-    --card-border-hover: #00d4ff;
-    --text-primary: #ffffff;
-    --text-secondary: #e0e0e0;
-    --text-muted: #b0b0b0;
-    --accent-blue: #00d4ff;
-    --accent-purple: #9d4edd;
-    --accent-pink: #ff00ff;
-    --accent-blue-glow: rgba(0, 212, 255, 0.4);
-    --accent-purple-glow: rgba(157, 78, 221, 0.4);
-    --accent-pink-glow: rgba(255, 0, 255, 0.5);
-    --shadow-blue: rgba(0, 212, 255, 0.25);
-    --shadow-purple: rgba(157, 78, 221, 0.25);
-    --shadow-pink: rgba(255, 0, 255, 0.3);
-    --gradient-primary: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-    --gradient-pink: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-    --whatsapp-color: #25D366;
-    --whatsapp-gradient: linear-gradient(135deg, #25D366, #128C7E);
-    --telegram-color: #0088cc;
-    --telegram-gradient: linear-gradient(135deg, #0088cc, #006699);
-    --glass-bg: rgba(20, 20, 20, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.1);
+  /* Core dark palette */
+  --bg-black: #121212;
+  --bg-dark: #1a1a1a;
+  --bg-card: #1e1e1e;
+  --bg-card-hover: #242424;
+  --border-color: #2c2c2c;
+
+  /* Neon accent colors */
+  --neon-purple: #a855f7;
+  --neon-purple-glow: #c084fc;
+  --neon-cyan: #22d3ee;
+  --neon-cyan-glow: #67e8f9;
+  --neon-pink: #ff2d95;
+  --neon-green: #39ff88;
+  --neon-orange: #ff9f1c;
+
+  /* Text */
+  --text-primary: #f5f5f5;
+  --text-secondary: #a3a3a3;
+  --text-muted: #6b6b6b;
+
+  --radius: 14px;
+  --transition: all 0.25s ease;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Cairo', sans-serif;
-    background: var(--primary-bg);
-    color: var(--text-primary);
-    line-height: 1.6;
-    min-height: 100vh;
-    overflow-x: hidden;
+  background: var(--bg-black);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(168, 85, 247, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(34, 211, 238, 0.08), transparent 40%);
+  color: var(--text-primary);
+  font-family: 'Poppins', 'Rajdhani', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
 }
-
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.header {
-    text-align: center;
-    padding: 4rem 0 3rem;
-    position: relative;
-    overflow: hidden;
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; }
+input { font-family: inherit; }
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
 }
 
-.header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background: radial-gradient(circle at center, var(--accent-blue-glow) 0%, transparent 70%);
-    opacity: 0.1;
-    pointer-events: none;
-}
-
-.logo-wrapper {
-    position: relative;
-    display: inline-block;
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .logo {
-    font-size: 4rem;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -2px;
-    position: relative;
-    z-index: 2;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
 }
 
-.logo-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120%;
-    height: 120%;
-    background: var(--gradient-glow);
-    filter: blur(25px);
-    opacity: 0.6;
-    z-index: 1;
-    animation: pulse 2s ease-in-out infinite;
+.logo-main { color: var(--text-primary); }
+.logo-accent {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
 }
 
-.tagline {
-    font-size: 1.3rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-top: 0.5rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+.search-wrapper {
+  flex: 1;
+  max-width: 480px;
+  min-width: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.main-content {
-    min-height: calc(100vh - 400px);
+.search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
 }
 
-.category-nav {
-    padding: 1.5rem 0;
-    margin-bottom: 2rem;
+#searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: var(--transition);
 }
 
-.category-tabs {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+#searchInput:focus {
+  outline: none;
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
 }
 
-.tab-btn {
-    padding: 0.875rem 1.75rem;
-    border: 1px solid var(--card-border);
-    background: transparent;
-    color: var(--text-secondary);
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    font-family: 'Cairo', sans-serif;
+.header-badge {
+  background: linear-gradient(135deg, rgba(168,85,247,0.15), rgba(34,211,238,0.15));
+  border: 1px solid var(--neon-purple);
+  color: var(--neon-cyan-glow);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.tab-btn:hover {
-    border-color: var(--accent-blue);
-    background: rgba(0, 212, 255, 0.1);
-    transform: translateY(-2px);
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero {
+  text-align: center;
+  padding: 60px 24px 40px;
 }
 
-.tab-btn.active {
-    background: var(--gradient-primary);
-    color: var(--primary-bg);
-    border-color: transparent;
-    box-shadow: 0 0 20px var(--accent-blue-glow);
-    font-weight: 600;
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  margin-bottom: 14px;
 }
 
-.services-section {
-    padding: 2rem 0 0;
-    min-height: calc(100vh - 300px);
+.text-gradient {
+  background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    animation: fadeIn 0.6s ease-out;
-    margin-bottom: 4rem;
+.hero p {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 16px;
 }
 
-.service-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 2.5rem 2rem;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(12px);
-    position: relative;
-    overflow: hidden;
+/* ==========================================================================
+   SECTION HEADER
+   ========================================================================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0 30px;
 }
 
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--gradient-primary);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-.service-card:hover::before {
-    opacity: 1;
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
 }
 
-.service-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: var(--accent-blue);
-    box-shadow: 0 20px 40px var(--shadow-blue);
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  margin-bottom: 40px;
 }
 
-.icon-wrapper {
-    width: 90px;
-    height: 90px;
-    margin: 0 auto 1.5rem;
-    background: rgba(0, 212, 255, 0.1);
-    border: 2px solid var(--card-border);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s ease;
-    position: relative;
-    z-index: 2;
+.empty-icon { font-size: 48px; margin-bottom: 14px; }
+.empty-state h3 { color: var(--text-primary); margin-bottom: 8px; font-family: 'Rajdhani', sans-serif; font-size: 20px; }
+
+/* ==========================================================================
+   PRODUCTS GRID
+   ========================================================================== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 24px;
+  padding-bottom: 60px;
 }
 
-.service-card:hover .icon-wrapper {
-    background: var(--gradient-primary);
-    border-color: transparent;
-    transform: scale(1.1);
-    box-shadow: 0 0 25px var(--accent-blue-glow);
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
 }
 
-.service-icon {
-    font-size: 3rem;
-    transition: transform 0.3s ease;
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--neon-purple);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
 }
 
-
-.service-name {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    position: relative;
-    z-index: 2;
+.product-card.unavailable {
+  filter: grayscale(0.8);
+  opacity: 0.6;
 }
 
-.service-hint {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    position: relative;
-    z-index: 2;
+.product-card.unavailable:hover {
+  transform: none;
+  box-shadow: none;
 }
 
-/* Payment Methods Section - Glassmorphism Style - FIXED POSITIONING */
-.payment-section {
-    padding: 3rem 0;
-    margin-top: 2rem;
-    position: relative;
-    z-index: 1;
+.product-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #0d0d0d;
 }
 
-.payment-glass {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 30px;
-    padding: 3rem 2rem;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
+.product-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
 }
 
-.payment-glass::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--gradient-pink);
-    opacity: 0.8;
+.product-card:hover .product-image-wrap img {
+  transform: scale(1.06);
 }
 
-.payment-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    position: relative;
+/* Badges */
+.badge {
+  position: absolute;
+  top: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  z-index: 2;
 }
 
-.payment-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: var(--gradient-pink);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px var(--accent-pink-glow);
-    margin-bottom: 0.5rem;
-    animation: neonGlow 2s ease-in-out infinite alternate;
+.badge-hot {
+  right: 10px;
+  background: linear-gradient(135deg, #ff2d95, #ff6b2d);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 45, 149, 0.8), 0 0 20px rgba(255, 107, 45, 0.5);
+  animation: pulseGlow 1.6s infinite ease-in-out;
 }
 
-.payment-subtitle {
-    font-size: 1rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    margin-top: 0.5rem;
+.badge-sale {
+  left: 10px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  color: #fff;
 }
 
-.payment-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
+.badge-outofstock {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.75);
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 8px 18px;
+  font-size: 13px;
+  border-radius: 8px;
+  white-space: nowrap;
 }
 
-.payment-card {
-    background: rgba(20, 20, 20, 0.7);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
-    padding: 2rem 1rem;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 45, 149, 0.7), 0 0 16px rgba(255, 107, 45, 0.4); }
+  50% { box-shadow: 0 0 16px rgba(255, 45, 149, 1), 0 0 28px rgba(255, 107, 45, 0.7); }
 }
 
-.payment-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: var(--gradient-pink);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.product-body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
 }
 
-.payment-card:hover::before {
-    opacity: 1;
+.product-title {
+  font-size: 17px;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 0.3px;
 }
 
-.payment-card:hover {
-    transform: translateY(-8px) scale(1.05);
-    border-color: var(--accent-purple);
-    box-shadow: 0 15px 35px var(--shadow-purple);
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.payment-icon-wrapper {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 1rem;
-    background: rgba(157, 78, 221, 0.1);
-    border: 2px solid var(--accent-purple);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.4s ease;
-    position: relative;
-    z-index: 2;
+.price-final {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--neon-green);
 }
 
-.payment-card:hover .payment-icon-wrapper {
-    background: var(--gradient-pink);
-    border-color: transparent;
-    transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 0 20px var(--accent-pink-glow);
+.price-original {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: line-through;
 }
 
-.payment-icon {
-    font-size: 2rem;
-    transition: transform 0.3s ease;
+.applied-promo-tag {
+  font-size: 12px;
+  color: var(--neon-cyan-glow);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: none;
 }
 
-.payment-name {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.25rem;
-    position: relative;
-    z-index: 2;
+/* Promo apply row */
+.promo-apply-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
 }
 
-.payment-desc {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    position: relative;
-    z-index: 2;
+.promo-apply-row input {
+  flex: 1;
+  padding: 8px 10px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 13px;
+  min-width: 0;
 }
 
-.price-section {
-    padding: 2rem 0 4rem;
-    min-height: calc(100vh - 200px);
+.promo-apply-row input:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
 }
 
-.back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.875rem 1.75rem;
-    margin-bottom: 2.5rem;
-    color: var(--accent-blue);
-    background: rgba(0, 212, 255, 0.1);
-    border: 1px solid var(--accent-blue);
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+.promo-msg {
+  font-size: 12px;
+  min-height: 14px;
 }
 
-.back-btn:hover {
-    background: var(--accent-blue);
-    color: var(--primary-bg);
-    transform: translateX(-8px);
-    box-shadow: 0 0 20px var(--accent-blue-glow);
-}
+.promo-msg.success { color: var(--neon-green); }
+.promo-msg.error { color: #ff4d4d; }
 
-.back-icon {
-    width: 22px;
-    height: 22px;
-}
-
-.price-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    padding: 3rem;
-    backdrop-filter: blur(15px);
-    animation: fadeIn 0.6s ease-out;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.price-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.service-icon-wrapper {
-    width: 110px;
-    height: 110px;
-    margin: 0 auto 1.5rem;
-    background: rgba(157, 78, 221, 0.1);
-    border: 2px solid var(--accent-purple);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 25px var(--accent-purple-glow);
-}
-
-.service-icon {
-    font-size: 3.5rem;
-}
-
-.service-title {
-    font-size: 2.8rem;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 15px var(--accent-blue-glow);
-}
-
-.price-table-container {
-    overflow-x: auto;
-    margin-bottom: 2.5rem;
-    border-radius: 16px;
-    border: 1px solid var(--card-border);
-}
-
-.price-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.price-table thead {
-    background: var(--gradient-primary);
-}
-
-.price-table th {
-    text-align: left;
-    padding: 1.25rem 1.5rem;
-    font-weight: 700;
-    color: white;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.price-table td {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--card-border);
-    transition: all 0.3s ease;
-}
-
-.price-table tbody tr:hover td {
-    background: rgba(0, 212, 255, 0.05);
-}
-
-.price-table td:first-child {
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.price-table td:nth-child(2) {
-    text-align: center;
-    font-weight: 700;
-    color: var(--accent-purple);
-    font-size: 1.1rem;
-}
-
-.price-table td:last-child {
-    text-align: right;
-    font-weight: 700;
-    color: var(--accent-blue);
-    font-size: 1.1rem;
-}
-
-.order-section {
-    text-align: center;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 16px;
-    border: 1px solid var(--card-border);
-}
-
-.order-instruction {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-}
-
+/* Order buttons */
 .order-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
 }
 
-.order-btn {
-    padding: 1.25rem 2rem;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
 }
 
-.order-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s;
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.order-btn:hover::before {
-    left: 100%;
+.btn-whatsapp {
+  flex: 1;
+  background: #25d366;
+  color: #08240f;
 }
+.btn-whatsapp:hover:not(:disabled) { background: #1ebe5c; box-shadow: 0 0 14px rgba(37, 211, 102, 0.5); }
 
-.order-btn:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+.btn-telegram {
+  flex: 1;
+  background: #229ed9;
+  color: #06202e;
 }
+.btn-telegram:hover:not(:disabled) { background: #1c88bd; box-shadow: 0 0 14px rgba(34, 158, 217, 0.5); }
 
-.whatsapp-btn {
-    background: var(--whatsapp-gradient);
+.btn-apply {
+  background: var(--neon-purple);
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 13px;
+  white-space: nowrap;
 }
+.btn-apply:hover { background: var(--neon-purple-glow); }
 
-.whatsapp-btn:hover {
-    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+.btn-primary {
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-cyan));
+  color: #0b0b0b;
+  font-weight: 700;
 }
+.btn-primary:hover { filter: brightness(1.1); box-shadow: 0 0 16px rgba(168, 85, 247, 0.5); }
 
-.telegram-btn {
-    background: var(--telegram-gradient);
+.btn-secondary {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
 }
+.btn-secondary:hover { border-color: var(--neon-cyan); }
 
-.telegram-btn:hover {
-    box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4);
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  font-size: 13px;
 }
+.btn-ghost:hover { border-color: var(--neon-purple); color: var(--text-primary); }
 
-.btn-icon {
-    width: 24px;
-    height: 24px;
+.btn-danger {
+  background: rgba(255, 77, 77, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 77, 77, 0.4);
 }
+.btn-danger:hover { background: rgba(255, 77, 77, 0.3); }
 
-.footer {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 2rem 0;
-    margin-top: 0;
-    border-top: 1px solid var(--card-border);
-    backdrop-filter: blur(10px);
+.btn-toggle {
+  background: rgba(255, 159, 28, 0.15);
+  color: var(--neon-orange);
+  border: 1px solid rgba(255, 159, 28, 0.4);
 }
+.btn-toggle:hover { background: rgba(255, 159, 28, 0.3); }
 
-.footer-content {
-    text-align: center;
+.btn-edit {
+  background: rgba(34, 211, 238, 0.15);
+  color: var(--neon-cyan-glow);
+  border: 1px solid rgba(34, 211, 238, 0.4);
 }
+.btn-edit:hover { background: rgba(34, 211, 238, 0.3); }
 
-.footer-text {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 8px;
 }
 
-.store-name {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
+/* ==========================================================================
+   ADMIN DASHBOARD
+   ========================================================================== */
+.admin-container {
+  padding-top: 40px;
+  padding-bottom: 60px;
 }
 
-.hidden {
-    display: none !important;
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.admin-header h2 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
 }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.6;
-    }
-    50% {
-        transform: translate(-50%, -50%) scale(1.1);
-        opacity: 0.8;
-    }
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+  align-items: start;
 }
 
-@keyframes neonGlow {
-    from {
-        text-shadow: 0 0 30px var(--accent-pink-glow);
-    }
-    to {
-        text-shadow: 0 0 40px var(--accent-pink-glow), 0 0 60px var(--accent-pink-glow);
-    }
+.admin-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 22px;
 }
 
-.slide-in {
-    animation: slideIn 0.3s ease;
+.admin-card h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 19px;
+  margin-bottom: 16px;
+  color: var(--text-primary);
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+.admin-card label {
+  display: block;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 12px 0 6px;
 }
 
-@media (max-width: 768px) {
-    .logo img {
-        width: 100px; /* حجم أصغر للهواتف */
-    }
+.admin-card input[type="text"],
+.admin-card input[type="url"],
+.admin-card input[type="number"] {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
 }
 
-    .payment-title {
-        font-size: 2rem;
-    }
-    
-    .category-tabs {
-        gap: 0.5rem;
-    }
-    
-    .tab-btn {
-        padding: 0.75rem 1.25rem;
-        font-size: 0.9rem;
-    }
-    
-    .services-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-    }
-    
-    .service-card {
-        padding: 2rem 1.5rem;
-    }
-    
-    .payment-grid {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 1rem;
-    }
-    
-    .order-buttons {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-    
-    .order-btn {
-        width: 100%;
-    }
-    
-    .payment-subtitle {
-        position: static;
-        margin-top: 1rem;
-        font-size: 0.9rem;
-    }
-
-
-@media (max-width: 480px) {
-    .logo {
-        font-size: 2.5rem;
-    }
-    
-    .services-grid {
-        grid-template-columns: 1fr;
-        margin-bottom: 2rem;
-    }
-    
-    .payment-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-    }
-    
-    .payment-card {
-        padding: 1.5rem 1rem;
-    }
-    
-    .payment-icon-wrapper {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .payment-icon {
-        font-size: 1.5rem;
-    }
-    
-    .order-btn {
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
-    }
-}
-/* ==========================================
-   Droxo Shop - Individual Service Icon Styling
-   15 Separate & Independent Blocks - Zero Grouping
-   ========================================== */
-
-/* Base Icon Wrapper (Applied to all icons) */
-.icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(157, 78, 221, 0.1);
-    border: 2px solid var(--accent-purple);
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-/* 1. FREE FIRE - Base Styles */
-.icon-freefire {
-    width: 116px !important;      /* تقليص العرض قليلاً ليتنفس الشعار داخل الدائرة */
-    height: 116px !important;     /* مساواة الارتفاع مع العرض لضمان أبعاد دائرية مثالية */
-    object-fit: contain;     /* يغطي المساحة كامل بدون تشويه الشعار */
-    object-position: center;  /* يضمن التمركز في الوسط هندسياً */
-    border-radius: 50%;
-    transform: translate(0px, 0px);
-}
-
-/* 1. FREE FIRE - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-freefire {
-        width: 116px !important;
-        height: 116px !important;
-        transform: translateY(-1px);
-    }
-}
-
-/* 1. FREE FIRE - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-freefire {
-        width: 55px;
-        height: 55px;
-        padding: 2px;
-    }
-}
-
-/* 2. EFOOTBALL - Base Styles */
-.icon-efootball {
-    width: 130px;
-    height: 1155px;
-    object-fit: contain;
-    object-position: 50% 52%;
-    padding: 3px 12px;
-}
-
-/* 2. EFOOTBALL - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-efootball {
-        width: 132px;
-        height: 1155px;
-        padding: 2px 10px;
-    }
-}
-
-/* 2. EFOOTBALL - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-efootball {
-        width: 132px;
-        height: 1155px;
-        padding: 2px 8px;
-    }
-}
-
-/* 3. DISCORD NITRO - Base Styles */
-.icon-discord-nitro {
-    width: 120px;
-    height: 125px;
-    object-fit: contain;
-    object-position: center -1%;
-    padding: 6px 4px;
-}
-
-/* 3. DISCORD NITRO - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-discord-nitro {
-        width: 120px;
-        height: 125px;
-        padding: 4px 2px;
-    }
-}
-
-/* 3. DISCORD NITRO - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-discord-nitro {
-        width: 120px;
-        height: 125px;
-        padding: 3px 2px;
-    }
-}
-
-/* 4. BINANCE USDT - Base Styles */
-.icon-binance-usdt {
-    width: 118px;
-    height: 118px;
-    object-fit: cover;
-    object-position: center;
-    padding: 0;
-}
-
-/* 4. BINANCE USDT - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-binance-usdt {
-        width: 118px;
-        height: 118px;
-        padding: 0;
-    }
-}
-
-/* 4. BINANCE USDT - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-binance-usdt {
-        width: 118px;
-        height: 118px;
-        padding: 0;
-    }
-}
-
-/* 5. GOOGLE PLAY - Base Styles */
-.icon-google-play {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    object-position: 50% 45%;
-    padding: 6px;
-}
-
-/* 5. GOOGLE PLAY - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-google-play {
-        width: 68px;
-        height: 68px;
-        padding: 4px;
-    }
-}
-
-/* 5. GOOGLE PLAY - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-google-play {
-        width: 58px;
-        height: 58px;
-        padding: 3px;
-    }
-}
-
-/* 6. EPIC GAMES - Base Styles */
-.icon-epic-games {
-    width: 155px;
-    height: 155px;
-    object-fit: contain;
-    object-position: center;
-    padding: 4px 14px;
-}
-
-/* 6. EPIC GAMES - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-epic-games {
-        width: 155px;
-        height: 155px;
-        padding: 2px 10px;
-    }
-}
-
-/* 6. EPIC GAMES - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-epic-games {
-        width: 155px;
-        height: 155px;
-        padding: 2px 8px;
-    }
-}
-
-/* 7. PUBG MOBILE - Base Styles */
-.icon-pubg-mobile {
-    width: 115px;
-    height: 115px;
-    object-fit: contain;
-    object-position: center;
-    padding: 3px 9px;
-}
-
-/* 7. PUBG MOBILE - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-pubg-mobile {
-        width: 70px;
-        height: 65px;
-        padding: 3px 8px;
-    }
-}
-
-/* 7. PUBG MOBILE - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-pubg-mobile {
-        width: 60px;
-        height: 55px;
-        padding: 2px 6px;
-    }
-}
-
-/* 8. PLAYSTATION - Base Styles */
-.icon-playstation {
-    width: 76px;
-    height: 76px;
-    object-fit: contain;
-    object-position: center;
-    padding: 5px;
-}
-
-/* 8. PLAYSTATION - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-playstation {
-        width: 65px;
-        height: 65px;
-        padding: 3px;
-    }
-}
-
-/* 8. PLAYSTATION - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-playstation {
-        width: 55px;
-        height: 55px;
-        padding: 2px;
-    }
-}
-
-/* 9. NETFLIX - Base Styles */
-.icon-netflix {
-    width: 88px;
-    height: 72px;
-    object-fit: contain;
-    object-position: 50% 48%;
-    padding: 3px 16px;
-}
-
-/* 9. NETFLIX - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-netflix {
-        width: 75px;
-        height: 62px;
-        padding: 2px 12px;
-    }
-}
-
-/* 9. NETFLIX - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-netflix {
-        width: 65px;
-        height: 52px;
-        padding: 2px 10px;
-    }
-}
-
-/* 10. SPOTIFY - Base Styles */
-.icon-spotify {
-    width: 78px;
-    height: 78px;
-    object-fit: cover;
-    object-position: center;
-    padding: 0;
-}
-
-/* 10. SPOTIFY - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-spotify {
-        width: 67px;
-        height: 67px;
-        padding: 0;
-    }
-}
-
-/* 10. SPOTIFY - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-spotify {
-        width: 57px;
-        height: 57px;
-        padding: 0;
-    }
-}
-
-/* 11. SNAP PLUS - Base Styles */
-.icon-snap-plus {
-    width: 75px;
-    height: 82px;
-    object-fit: contain;
-    object-position: center 48%;
-    padding: 5px 3px;
-}
-
-/* 11. SNAP PLUS - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-snap-plus {
-        width: 65px;
-        height: 70px;
-        padding: 4px 2px;
-    }
-}
-
-/* 11. SNAP PLUS - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-snap-plus {
-        width: 55px;
-        height: 60px;
-        padding: 3px 2px;
-    }
-}
-
-/* 12. SHAHID VIP - Base Styles */
-.icon-shahid-vip {
-    width: 83px;
-    height: 75px;
-    object-fit: contain;
-    object-position: center;
-    padding: 4px 11px;
-}
-
-/* 12. SHAHID VIP - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-shahid-vip {
-        width: 70px;
-        height: 65px;
-        padding: 3px 8px;
-    }
-}
-
-/* 12. SHAHID VIP - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-shahid-vip {
-        width: 60px;
-        height: 55px;
-        padding: 2px 6px;
-    }
-}
-
-/* 13. XBOX - Base Styles */
-.icon-xbox {
-    width: 76px;
-    height: 76px;
-    object-fit: contain;
-    object-position: center;
-    padding: 6px;
-}
-
-/* 13. XBOX - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-xbox {
-        width: 65px;
-        height: 65px;
-        padding: 4px;
-    }
-}
-
-/* 13. XBOX - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-xbox {
-        width: 55px;
-        height: 55px;
-        padding: 3px;
-    }
-}
-
-/* 14. WINDOWS ACTIVATION - Base Styles */
-.icon-windows-activation {
-    width: 76px;
-    height: 76px;
-    object-fit: contain;
-    object-position: center;
-    padding: 5px;
-}
-
-/* 14. WINDOWS ACTIVATION - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-windows-activation {
-        width: 65px;
-        height: 65px;
-        padding: 3px;
-    }
-}
-
-/* 14. WINDOWS ACTIVATION - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-windows-activation {
-        width: 55px;
-        height: 55px;
-        padding: 2px;
-    }
-}
-
-/* 15. STEAM - Base Styles */
-.icon-steam {
-    width: 78px;
-    height: 78px;
-    object-fit: contain;
-    object-position: center;
-    padding: 4px;
-}
-
-/* 15. STEAM - Tablet (768px) */
-@media (max-width: 768px) {
-    .icon-steam {
-        width: 68px;
-        height: 68px;
-        padding: 4px;
-    }
-}
-
-/* 15. STEAM - Mobile (480px) */
-@media (max-width: 480px) {
-    .icon-steam {
-        width: 58px;
-        height: 58px;
-        padding: 3px;
-    }
-}
-
-/* ==========================================
-   Hover Effects (Applied to all icons)
-   ========================================== */
-
-.icon-wrapper:hover .icon-freefire {
-    transform: scale(2.2);
-    transition: transform 2.3s ease;
-}
-
-.icon-wrapper:hover .icon-efootball {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-discord-nitro {
-    transform: scale(2.2);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-binance-usdt {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-google-play {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-epic-games {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-pubg-mobile {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-playstation {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-netflix {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-spotify {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-snap-plus {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-shahid-vip {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-xbox {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-windows-activation {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-
-.icon-wrapper:hover .icon-steam {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-}
-/* الكود المريgل لظهور الصورة 100% وبدون اختفاء */
-.inner-icon-custom {
-    width: 85px !important;
-    height: 85px !important;
-    max-width: 100% !important; /* تمنع الصورة من تجاوز الدائرة */
-    max-height: 100% !important;
-    flex-shrink: 0 !important;   /* تمنع المتصفح من سحق الصورة أو تصغيرها لـ 0 */
-    object-fit: cover !important; /* تخلي اللوغو يجي معمر وواضح */
-    border-radius: 50% !important;
-    display: block !important;
-}
-
-/* 🎯 تحكم مخصص ومضمون لـ فري فاير بالسيف عليها تهبط */
-#freefire-detail-img {
-    margin-top: 12px !important; /* إذا شفتها هبطت بزاف، نقص الرقم لـ 8px أو 6px */
-}
-
-/* 🎯 تحكم مخصص لبينانس */
-#binance-detail-img {
-    margin-top: 99px !important;
-}
-
-/* 🎯 تحكم مخصص لببجي */
-#pubg-detail-img {
-    margin-top: 10px !important;
-}
-
-/* الخلفية الكاملة لشاشة التحميل */
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #06020b; /* أسود داكن جداً مائل للبنفسجي */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999999; /* فوق كلش */
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
-}
-
-/* حاوية العناصر */
-.neon-loader-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-}
-
-/* سبينر النيون المضيء */
-.neon-spinner {
-    width: 70px;
-    height: 70px;
-    border: 3px solid transparent;
-    border-top: 3px solid #9d4ede; /* بنفسجي نيون */
-    border-right: 3px solid #b5179e; /* فوشيا مضيء */
-    border-radius: 50%;
-    animation: neon-spin 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    filter: drop-shadow(0 0 12px #9d4ede);
-}
-
-/* اسم المتجر بتأثير الإضاءة المشعة */
-.brand-glow {
-    color: #ffffff;
-    font-size: 28px;
-    font-weight: 900;
-    letter-spacing: 5px;
-    font-family: 'Poppins', sans-serif;
-    text-shadow: 0 0 10px rgba(157, 78, 221, 0.6),
-                 0 0 20px rgba(157, 78, 221, 0.4),
-                 0 0 40px rgba(157, 78, 221, 0.2);
-    animation: text-pulse 2s ease-in-out infinite;
-}
-
-/* أنميشن الدوران السريع والسلس */
-@keyframes neon-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* أنميشن نبض النص */
-@keyframes text-pulse {
-    0%, 100% { opacity: 0.7; transform: scale(0.98); }
-    50% { opacity: 1; transform: scale(1.02); }
-}
-
-/* كلاس الاختفاء النظيف */
-#loading-screen.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* تحكم في الحاوية (الغلاف) */
-.logo-wrapper {
-    display: flex;          /* باش نقدروا نجيبو اللوغو في الوسط */
-    justify-content: center; /* توسيط أفقي */
-    align-items: center;     /* توسيط عمودي */
-
-}
-
-/* تحكم في اللوغو اللي داخل هاد الغلاف */
-.logo-wrapper img {
-    width: 115px;           /* هنايا هو الصح: بدل هاد الرقم باش تصغر أو تكبر اللوغو */
-    height: auto;           /* يحافظ على أبعاد الصورة */
-    max-width: 90% ;        /* باش في التليفون ما يخرجش على الشاشة */
-    transition: 0.3s;       /* أنيميشن خفيفة */
-}
-
-/* ========================================================
-   🎯 تحكم مخصص لكل لوغو وحدو في الصفحة الرئيسية (Droxo Shop)
-   ======================================================== */
-
-/* 1. فري فاير (Free Fire) */
-[data-id="freefire"] img, .icon-freefire {
-    margin-top: 5px !important;   /* تهبيط / تصعيد عمودي */
-    transform: translateX(0px) !important; /* تدنية يمين (+) أو يسار (-) */
-}
-
-/* 2. ببجي موبايل (PUBG Mobile) */
-[data-id="pubgm"] img, .icon-pubg-mobile {
-    margin-top: 20px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 3. إي فوتبول (eFootball) */
-[data-id="efootball"] img, .icon-efootball {
-    margin-top: -20px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 4. ستيم (Steam) */
-[data-id="steam"] img, .icon-steam {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 5. إيبك جيمز (Epic Games) */
-[data-id="epicgames"] img, .epicgames-icon {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 6. إكس بوكس (Xbox) */
-[data-id="xbox"] img, .icon-xbox {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 7. بلايستيشن (PlayStation) */
-[data-id="playstation"] img, .icon-playstation {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 8. نتفليكس (Netflix) */
-[data-id="netflix"] img, .icon-netflix {
-    margin-top: 00px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 9. شاهد (Shahid VIP) */
-[data-id="shahid"] img, .icon-shahid-vip {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 10. سبوتيفاي (Spotify) */
-[data-id="spotify"] img, .icon-spotify {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 11. قوقل بلاي (Google Play) */
-[data-id="googleplay"] img, .icon-google-play {
-    margin-top: 00px !important;
-    transform: translateX(10px) !important;
-}
-
-/* 12. سناب شات (Snapchat) */
-[data-id="snapchat"] img, .icon-snapchat-plus {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 13. ديسكورد (Discord) */
-[data-id="discord"] img, .icon-discord-nitro {
-    margin-top: 00px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 14. ويندوز (Windows) */
-[data-id="windows"] img, .icon-windows-activation {
-    margin-top: 25px !important;
-    transform: translateX(0px) !important;
-}
-
-/* 15. بينانس (Binance USDT) */
-[data-id="binance"] img, .icon-binance-usdt {
-    margin-top: 0px !important;
-    transform: translateX(0px) !important;
-}
-/* هاد الكود يطبق غير على أيقونة سناب شات */
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.epicgames-icon {
-    width: 155px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-binance-usdt {
-    width: 140px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-snapchat-plus {
-    width: 185px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-steam {
-    width: 95px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-xbox {
-    width: 325px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-shahid-vip {
-    width: 95px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-spotify {
-    width: 165px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-netflix {
-    width: 105px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-/* هذا الكود يتحكم فقط في حجم أيقونة إيبك جيمز */
-.icon-discord-nitro {
-    width: 155px !important;  /* صغر هذا الرقم (مثلاً 40px) لتصغير الصورة أكثر */
-    height: auto;            /* للمحافظة على أبعاد الصورة */
-    display: block;          /* لضمان تموضعها بشكل صحيح */
-    margin: 0 auto;          /* لجعلها في وسط الدائرة */
-    object-fit: contain;     /* لضمان عدم تمدد الصورة بشكل سيء */
-}
-
-
-.icon-google-play {
-    width: 125px !important;  
-    height: auto;           
-    display: block;        
-    margin: 0 auto;         
-    object-fit: contain;   
-}
-
-
-.icon-playstation {
-    width: 175px !important;  
-    height: auto;            
-    display: block;          
-    margin: 0 auto;     
-    object-fit: contain;     
-}
-
-
-
-
-
-
-
-
-.payment-icon-img {
-width: 100%;      
-    height: 100%;     
-    object-fit: cover; 
-    display: block;
-    margin: 0 auto;
-}
-
-  */
-.payment-icon-wrapper {
-    width: 60px;
-    height: 60px;
-    background: rgba(168, 85, 247, 0.1); 
-    border: 1px solid rgba(168, 85, 247, 0.4);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-    
-    overflow: hidden; 
-    position: relative;
-}
-
-
-.payment-card:hover .payment-icon-wrapper {
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
-    transform: translateY(-5px);
-}
-
-.payment-icon-img {
-    width: 115%;          
-    height: 115%;         
-    object-fit: contain;  
-    display: block;
-    margin: 0 auto;
-}
-
-.payment-icon-wrapper {
-    overflow: hidden;    
-    border-radius: 50%;  
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(168, 85, 247, 0.1); 
-}
-
-.app-download-container {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-start; /* هادي هي اللي تدنيه لليمنة */
-    padding-right: 0px; /* شوية مسافة باش ما يلصقش في الحافة */
-}
-
-.android-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(168, 85, 247, 0.1); /* خلفية بنفسجية شفافة */
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    border: 1px solid #A855F7;
-    border-radius: 12px;
-    transition: 0.3s all ease;
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
-}
-
-.android-btn i {
-    font-size: 28px;
-    color: #3DDC84; /* لون أندرويد الأخضر */
-}
-
-.btn-text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.btn-text span {
-    font-size: 10px;
-    color: #ccc;
-}
-
-.btn-text strong {
-    font-size: 16px;
-}
-
-/* تحريك الزر عند الحط عليه بالفأرة */
-.android-btn:hover {
-    background: #A855F7;
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
-    transform: translateY(-3px);
-}
-
-
-
-/* ستايل صندوق إضافة الرأي */
-.add-feedback-box {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 30px;
-    max-width: 600px;
-    margin: 40px auto 0 auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.add-feedback-box h3 {
-    text-align: center;
-    color: var(--text-color);
-    font-size: 18px;
-    margin-bottom: 20px;
+.admin-card input:focus {
+  outline: none;
+  border-color: var(--neon-purple);
 }
 
 .form-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
-.add-feedback-box input, 
-.add-feedback-box textarea, 
-.add-feedback-box select {
-    width: 100%;
-    background: var(--tab-btn-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 12px 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    transition: 0.3s;
+.checkbox-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 16px;
 }
 
-.add-feedback-box input:focus, 
-.add-feedback-box textarea:focus, 
-.add-feedback-box select:focus {
-    border-color: #a855f7;
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-primary) !important;
+  margin: 0 !important;
+  cursor: pointer;
 }
 
-.rating-select {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: var(--text-color);
-    margin-bottom: 15px;
-    font-size: 14px;
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--neon-purple);
+  cursor: pointer;
 }
 
-.rating-select select {
-    width: auto;
-    cursor: pointer;
+.price-preview {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(57, 255, 136, 0.08);
+  border: 1px solid rgba(57, 255, 136, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--neon-green);
 }
 
-/* زر الإرسال */
-.submit-fb-btn {
-    background: linear-gradient(135deg, #a855f7, #701a75);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
 }
 
-.submit-fb-btn:hover {
-    box-shadow: 0 0 15px #a855f7;
-    transform: translateY(-2px);
+/* Promo list in admin */
+.promo-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* أنيميشن خفيفة للكرت الجديد كي يتزاد */
-.new-added-card {
-    animation: popIn 0.5s ease-out;
-    border-color: #a855f7 !important;
+.promo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: 8px;
 }
 
-@keyframes popIn {
-    0% { transform: scale(0.7); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+.promo-item .promo-code {
+  font-weight: 700;
+  color: var(--neon-cyan-glow);
+  letter-spacing: 0.5px;
 }
 
+.promo-item .promo-value {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-left: 8px;
+}
 
-/* الحاوية الأساسية لتنظيم الكروت */
-.payment-container {
-    display: flex;
-    flex-wrap: wrap;
+.muted-text {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Table */
+.table-card {
+  overflow: hidden;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+#productsTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+#productsTable th,
+#productsTable td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+#productsTable th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+#productsTable img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #0d0d0d;
+}
+
+.status-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-available {
+  background: rgba(57, 255, 136, 0.15);
+  color: var(--neon-green);
+}
+
+.status-unavailable {
+  background: rgba(255, 77, 77, 0.15);
+  color: #ff6b6b;
+}
+
+.table-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.site-footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-top: auto;
+}
+
+.footer-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* The hidden dot - visually blends in, only a tiny cursor hint on hover */
+.admin-dot {
+  cursor: default;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.admin-dot:hover {
+  color: var(--neon-purple);
+}
+
+/* ==========================================================================
+   ADMIN PASSWORD PROTECTION MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--neon-purple);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.35), 0 0 80px rgba(34, 211, 238, 0.15);
+  transform: scale(0.9) translateY(10px);
+  transition: transform 0.25s ease;
+}
+
+.modal-overlay.show .modal-box {
+  transform: scale(1) translateY(0);
+}
+
+.modal-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.7));
+}
+
+.modal-box h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.modal-sub {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+#adminPasswordInput {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#adminPasswordInput:focus {
+  outline: none;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.modal-actions .btn {
+  flex: 1;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION
+   ========================================================================== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-card);
+  border: 1px solid var(--neon-purple);
+  color: var(--text-primary);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 999;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  max-width: 90vw;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+  .header-container {
     justify-content: center;
-    gap: 25px;
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 0 15px;
-    direction: rtl;
+  }
+  .header-badge { display: none; }
+  .search-wrapper { order: 3; max-width: 100%; }
+  .hero { padding: 40px 16px 30px; }
+  .form-row { grid-template-columns: 1fr; }
+  .admin-header { flex-direction: column; align-items: flex-start; }
 }
 
-/* ديزاين الكروت العام */
-.payment-card {
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid rgba(0, 242, 254, 0.2);
-    border-radius: 15px;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    flex: 1;
-    min-width: 320px;
-    max-width: 420px;
-    transition: all 0.3s ease;
-}
-
-/* تأثير تحريك نيون خفيف عند تمرير الماوس */
-.payment-card:hover {
-    border-color: #00f2fe;
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-}
-
-/* تخصيص لون كرت RedotPay باللون الأحمر النيون الخاص ببراند تعهم */
-.payment-card.redotpay-card {
-    border-color: rgba(255, 74, 74, 0.2);
-}
-.payment-card.redotpay-card:hover {
-    border-color: #ff4a4a;
-    box-shadow: 0 0 15px rgba(255, 74, 74, 0.2);
-}
-
-.payment-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 25px;
-}
-
-.payment-icon {
-    font-size: 24px;
-}
-
-.copy-box {
-    margin-bottom: 18px;
-}
-
-.box-label {
-    font-size: 13px;
-    color: #b3b3b3;
-    display: block;
-    margin-bottom: 6px;
-}
-
-.input-group {
-    display: flex;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.payment-card:not(.redotpay-card) .input-group:focus-within {
-    border-color: #00f2fe;
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
-}
-
-.payment-card.redotpay-card .input-group:focus-within {
-    border-color: #ff4a4a;
-    box-shadow: 0 0 10px rgba(255, 74, 74, 0.3);
-}
-
-.input-group input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    padding: 12px 15px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-    outline: none;
-    text-align: left;
-    letter-spacing: 0.5px;
-}
-
-/* زر النسخ والأنيميشن */
-.copy-btn {
-    background: linear-gradient(45deg, #00f2fe, #4facfe);
-    border: none;
-    color: #000;
-    font-weight: bold;
-    padding: 0 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.3s ease;
-}
-
-/* زر نسخ ريدوت باي يميل للأحمر/البرتقالي */
-.redotpay-card .copy-btn {
-    background: linear-gradient(45deg, #ff4a4a, #ff7676);
-}
-
-.copy-btn:hover {
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
-}
-.redotpay-card .copy-btn:hover {
-    box-shadow: 0 0 15px rgba(255, 74, 74, 0.5);
-}
-
-/* ستايل الزر المشترك كي يتنسخ بنجاح */
-.copy-btn.copied {
-    background: #00ff88 !important;
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.7) !important;
-    color: #000 !important;
-}
-
-
-
-.order-form-container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 0 15px;
-    direction: rtl;
-}
-.payment-card.order-card {
-    max-width: 100% !important;
-    border-color: rgba(0, 242, 254, 0.3);
-}
-.file-upload-group {
-    position: relative;
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px dashed rgba(0, 242, 254, 0.4);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.file-upload-group:hover {
-    border-color: #00f2fe;
-    background: rgba(0, 242, 254, 0.05);
-}
-.file-upload-group input[type="file"] {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-.upload-icon { font-size: 28px; display: block; margin-bottom: 5px; }
-.upload-text { color: #aaa; font-size: 14px; }
-.file-preview {
-    margin-top: 10px;
-    color: #00ff88;
-    font-size: 13px;
-    font-weight: bold;
-}
-.submit-order-btn {
-    width: 100%;
-    background: linear-gradient(45deg, #00f2fe, #4facfe);
-    border: none;
-    border-radius: 10px;
-    padding: 14px;
-    color: #000;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-}
-.submit-order-btn:hover {
-    box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
-    transform: translateY(-2px);
-}
-
-
-
-/* ستايل حاوية التتبع */
-.tracker-container {
-    background: rgba(20, 20, 35, 0.6);
-    border: 1px solid rgba(0, 242, 254, 0.2);
-    backdrop-filter: blur(12px);
-    padding: 2rem;
-    border-radius: 20px;
-    max-width: 600px;
-    margin: 3rem auto;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="light"] .tracker-container {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(157, 78, 221, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.tracker-title {
-    color: #00f2fe;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-}
-
-[data-theme="light"] .tracker-title {
-    color: #9d4edd;
-    text-shadow: none;
-}
-
-.tracker-subtitle {
-    font-size: 0.9rem;
-    color: #b3b3b3;
-    margin-bottom: 1.5rem;
-}
-
-[data-theme="light"] .tracker-subtitle {
-    color: #555;
-}
-
-/* صندوق البحث */
-.tracker-search-box {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    max-width: 450px;
-    margin: 0 auto;
-}
-
-.tracker-search-box input {
-    flex: 1;
-    padding: 0.8rem 1.2rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(10, 10, 20, 0.8);
-    color: white;
-    font-size: 1rem;
-    text-align: center;
-    outline: none;
-    transition: 0.3s;
-}
-
-.tracker-search-box input:focus {
-    border-color: #00f2fe;
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
-}
-
-.track-btn {
-    background: linear-gradient(45deg, #00f2fe, #4facfe);
-    color: white;
-    border: none;
-    padding: 0 1.5rem;
-    border-radius: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.track-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
-}
-
-/* كرت النتيجة */
-.tracker-result {
-    margin-top: 1.5rem;
-    animation: fadeIn 0.4s ease;
-}
-
-.result-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: right;
-    direction: rtl;
-}
-
-.result-card p {
-    margin: 0.6rem 0;
-    font-size: 1rem;
-}
-
-/* شارات الحالة (الـ Badges) */
-.status-badge {
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    display: inline-block;
-}
-
-/* ألوان الحالات تلقائياً */
-.status-pending { background: #ffaa00; color: #000; }  /* قيد المراجعة */
-.status-processing { background: #00d4ff; color: #000; } /* جاري الشحن */
-.status-completed { background: #00ff66; color: #000; }  /* تم الشحن */
-
-.status-time {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 10px !important;
+@media (max-width: 480px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .order-buttons { flex-direction: column; }
 }

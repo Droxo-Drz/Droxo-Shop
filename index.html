@@ -1,386 +1,206 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DROXO - Premium Digital Services Store in Algeria.">
-    <meta name="keywords" content="digital services, games, streaming, gift cards, Algeria, DROXO">
-    <meta name="author" content="DROXO Store">
-    <title>Droxo Shop</title>
-    
-    <link rel="icon" type="image/png" href="Photo/My-Logo2.png"> 
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Droxo Shop | Digital Games & Top-up Store</title>
+  <meta name="description" content="Droxo Shop - Your trusted store for game charging and digital products">
+  <!-- Google Font for premium gaming look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
- <div id="loading-screen">
-    <div class="neon-loader-container">
-        <div class="neon-spinner"></div>
-        <div class="brand-glow">DROXO</div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo" id="logoHome">
+        <span class="logo-main">Droxo</span><span class="logo-accent">Shop</span>
+      </div>
+
+      <!-- Search bar - only visible on #home view -->
+      <div class="search-wrapper" id="searchWrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search games or products...">
+      </div>
+
+      <div class="header-badge">🎮 Instant Delivery</div>
     </div>
-</div>
+  </header>
 
-<script>
-    (function() {
-        const screen = document.getElementById('loading-screen');
-        if (screen) {
-            let removed = false;
-            function dismiss() {
-                if (removed) return;
-                removed = true;
-                screen.style.opacity = '0';
-                screen.style.visibility = 'hidden';
-                setTimeout(() => screen.remove(), 600);
-            }
-            
-            window.addEventListener('load', dismiss);
-            
-            setTimeout(dismiss, 6000);
-        }
-    })();
-</script>
+  <!-- ============ MAIN CONTENT ============ -->
+  <main>
 
-    <header class="header">
-        <div class="theme-toggle-wrapper">
-    <button id="themeToggle" class="theme-toggle-btn">
-        <span id="themeIcon">🌙</span> </button>
-</div>
-    <div class="container">
-        <div class="logo-wrapper">
-            <img src="Photo/my-logo.png.png" alt="Droxo Owner" class="logo-img">
-            <div class="logo-glow"></div> 
+    <!-- ================= HOME VIEW (Store Front) ================= -->
+    <section id="home-view" class="view">
+
+      <div class="hero">
+        <h1>Level Up With <span class="text-gradient">Droxo Shop</span></h1>
+        <p>Fast, secure & trusted game top-ups and digital products. Order directly via WhatsApp or Telegram.</p>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">🛒 Our Products</h2>
+          <span class="section-line"></span>
         </div>
 
-        <div class="app-download-container">
-            <a href="app-release.apk" class="android-btn" download="DroxoStore.apk">
-    <i class="fab fa-android"></i>
-    <div class="btn-text">
-        <span>تحميل تطبيق المتجر</span>
-        <strong>Get App Android</strong>
-    </div>
-</a>
+        <!-- Empty state shown when no products exist in Local Storage -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">📦</div>
+          <h3>No Products Available Yet</h3>
+          <p>Please check back later. Our team is preparing amazing offers for you!</p>
         </div>
 
-        <p class="tagline">Droxo Shop Is The Best Premium Digital Services Store In Algeria</p>
-    </div>
-</header>
+        <!-- Products are rendered dynamically here via app.js -->
+        <div id="productsGrid" class="products-grid"></div>
+      </div>
+    </section>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Category Navigation -->
-        <nav class="category-nav" aria-label="Service categories">
-            <div class="container">
-                <ul class="category-tabs">
-                    <li><button class="tab-btn active" data-category="all">جميع الخدمات</button></li>
-                    <li><button class="tab-btn" data-category="gaming">🎮 ألعاب</button></li>
-                    <li><button class="tab-btn" data-category="streaming">📽️ افلام</button></li>
-                    <li><button class="tab-btn" data-category="digital">📱 تطبيقات</button></li>
-                    <li><button class="tab-btn" data-category="crypto">💎 فلوس</button></li>
-                </ul>
-            </div>
-        </nav>
+    <!-- ================= ADMIN VIEW (Hidden Dashboard) ================= -->
+    <section id="admin-view" class="view" style="display:none;">
+      <div class="container admin-container">
 
-        <!-- Services Grid View (Main Page) -->
-        <section id="servicesView" class="services-section">
-            <div class="container">
-                <div id="servicesGrid" class="services-grid">
-                    <!-- Services will be dynamically inserted here -->
+        <div class="admin-header">
+          <h2>🔐 Admin Dashboard</h2>
+          <a href="#home" class="btn btn-ghost">← Back to Store</a>
+        </div>
+
+        <div class="admin-grid">
+
+          <!-- Product Management Form -->
+          <div class="admin-card">
+            <h3 id="formTitle">➕ Add New Product</h3>
+            <form id="productForm" autocomplete="off">
+              <input type="hidden" id="productId">
+
+              <label for="prodTitle">Title</label>
+              <input type="text" id="prodTitle" placeholder="e.g. PUBG Mobile 660 UC" required>
+
+              <label for="prodImage">Image URL</label>
+              <input type="url" id="prodImage" placeholder="https://example.com/image.png" required>
+
+              <div class="form-row">
+                <div class="form-col">
+                  <label for="prodCost">Original Cost Price (DA)</label>
+                  <input type="number" id="prodCost" min="0" step="1" placeholder="1000" required>
                 </div>
-
-                <!-- Payment Methods Section - INSIDE servicesView -->
-                <div class="payment-section">
-                    <div class="payment-glass">
-                        <div class="payment-header">
-                            <h2 class="payment-title">طرق الدفع المتاحة</h2>
-                            <p class="payment-subtitle">جميع طرق الدفع الآمنة والموثوقة</p>
-                        </div>
-                        <div class="payment-grid">
-    <div class="payment-card">
-        <div class="payment-icon-wrapper">
-            <img src="./Photo/baridiMob.webp" class="payment-icon-img" alt="BaridiMob">
-        </div>
-        <h3 class="payment-name">BaridiMob</h3>
-        <p class="payment-desc">الدفع عبر الهاتف</p>
-    </div>
-
-    <div class="payment-card">
-        <div class="payment-icon-wrapper">
-            <img src="./Photo/eccp.webp" class="payment-icon-img" alt="CCP">
-        </div>
-        <h3 class="payment-name">CCP</h3>
-        <p class="payment-desc">الحساب البريدي</p>
-    </div>
-
-    <div class="payment-card">
-        <div class="payment-icon-wrapper">
-            <img src="./Photo/edahabia-01-300x200.png" class="payment-icon-img" alt="Edahabia">
-        </div>
-        <h3 class="payment-name">Edahabia</h3>
-        <p class="payment-desc">البطاقة الذهبية</p>
-    </div>
-
-    <div class="payment-card">
-        <div class="payment-icon-wrapper">
-            <img src="./Photo/logo-binance.png" class="payment-icon-img" alt="Binance">
-        </div>
-        <h3 class="payment-name">Binance</h3>
-        <p class="payment-desc">العملات المشفرة</p>
-    </div>
-
-    <div class="payment-card">
-        <div class="payment-icon-wrapper">
-            <img src="./Photo/redotpay-card-physical-card.webp" class="payment-icon-img" alt="RedotPay">
-        </div>
-        <h3 class="payment-name">RedotPay</h3>
-        <p class="payment-desc">بطاقة الدفع</p>
-    </div>
-</div>
-                        </div>
-                    </div>
+                <div class="form-col">
+                  <label for="prodProfit">Profit Percentage (%)</label>
+                  <input type="number" id="prodProfit" min="0" step="0.1" placeholder="20" required>
                 </div>
+              </div>
+
+              <label for="prodDiscount">Discount Percentage (%)</label>
+              <input type="number" id="prodDiscount" min="0" max="100" step="0.1" placeholder="0" value="0">
+
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="prodTopSeller">
+                  <span>🔥 Mark as Top Seller (HOT)</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" id="prodAvailable" checked>
+                  <span>✅ Available</span>
+                </label>
+              </div>
+
+              <div class="price-preview" id="pricePreview">
+                Final Price: <strong>-- DA</strong>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" id="submitBtn" class="btn btn-primary">Add Product</button>
+                <button type="button" id="cancelEditBtn" class="btn btn-secondary" style="display:none;">Cancel Edit</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Promo Codes Management Form -->
+          <div class="admin-card">
+            <h3>🏷️ Promo Codes Management</h3>
+            <form id="promoForm" autocomplete="off">
+              <label for="promoCode">Code</label>
+              <input type="text" id="promoCode" placeholder="e.g. DROXO10" required>
+
+              <label for="promoValue">Discount Value (%)</label>
+              <input type="number" id="promoValue" min="1" max="100" placeholder="10" required>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Add Promo Code</button>
+              </div>
+            </form>
+
+            <div class="promo-list" id="promoList">
+              <p class="muted-text">No promo codes created yet.</p>
             </div>
-        </section>
-
-        <!-- Price List View (Hidden by default) -->
-        
-        <section id="priceView" class="price-section hidden">
-            <div class="container">
-                <button id="backBtn" class="back-btn" aria-label="Back to home">
-                    <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    <span>الرجوع الى الصفحة الرئيسية</span>
-                </button>
-
-                <div class="price-card">
-                    <header class="price-header">
-                        <div class="service-icon-wrapper">
-                            <span id="serviceIcon" class="service-icon"></span>
-                        </div>
-                        <h2 id="serviceName" class="service-title"></h2>
-                    </header>
-
-                    <div class="price-table-container">
-                        <table class="price-table">
-                            <thead>
-                                <tr>
-                                    <th>Package</th>
-                                    <th>Price</th>
-                                    <th>Currency</th>
-                                </tr>
-                            </thead>
-                            <tbody id="priceTableBody">
-                                <!-- Prices will be dynamically inserted here -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="payment-container">
-    
-    <div class="payment-card">
-        <div class="payment-header">
-            <span class="payment-icon">💳</span>
-            <h3>الدفع عبر الـ CCP / BaridiMob</h3>
-        </div>
-        
-        <div class="copy-box">
-            <span class="box-label">رقم الحساب (RIP):</span>
-            <div class="input-group">
-                <input type="text" id="ripNumber" value="007999990043848921" readonly>
-                <button class="copy-btn" onclick="copyText('ripNumber', this)">
-                    <span class="btn-text">نسخ</span>
-                    <span class="icon">📋</span>
-                </button>
-            </div>
+          </div>
         </div>
 
-        <div class="copy-box">
-            <span class="box-label">رقم الـ CCP والمفتاح:</span>
-            <div class="input-group">
-                <input type="text" id="ccpNumber" value="007999990043848921 Clé: 90" readonly>
-                <button class="copy-btn" onclick="copyText('ccpNumber', this)">
-                    <span class="btn-text">نسخ</span>
-                    <span class="icon">📋</span>
-                </button>
-            </div>
+        <!-- Product Control Table -->
+        <div class="admin-card table-card">
+          <h3>📋 Product Control Table</h3>
+          <div class="table-wrapper">
+            <table id="productsTable">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Title</th>
+                  <th>Cost</th>
+                  <th>Profit %</th>
+                  <th>Discount %</th>
+                  <th>Final Price</th>
+                  <th>Status</th>
+                  <th>Top Seller</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productsTableBody">
+                <!-- Rows injected by app.js -->
+              </tbody>
+            </table>
+          </div>
         </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <p>© 2026 Droxo Shop. All rights reserved<span id="adminDot" class="admin-dot" title="">.</span></p>
+    <p class="footer-sub">Fast • Secure • Trusted digital top-up store</p>
+  </footer>
+
+  <!-- Toast notification container -->
+  <div id="toast" class="toast"></div>
+
+  <!-- ============ ADMIN PASSWORD PROTECTION MODAL ============ -->
+  <!-- Hidden by default. Triggered when the hidden footer dot is clicked,
+       or when someone tries to access #admin directly via the URL bar. -->
+  <div id="passwordModalOverlay" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-icon">🔒</div>
+      <h3>Admin Access Required</h3>
+      <p class="modal-sub">Enter the administrator password to continue<br><span dir="rtl">أدخل كلمة المرور للمتابعة</span></p>
+
+      <form id="passwordForm" autocomplete="off">
+        <input type="password" id="adminPasswordInput" placeholder="Enter password..." required>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Unlock 🔓</button>
+          <button type="button" id="passwordCancelBtn" class="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
     </div>
+  </div>
 
-    <div class="payment-card redotpay-card">
-        <div class="payment-header">
-            <span class="payment-icon redot-icon">🔴</span>
-            <h3>الدفع عبر RedotPay (Binance)</h3>
-        </div>
-        
-        <div class="copy-box">
-            <span class="box-label">رقم الحساب (RedotPay ID):</span>
-            <div class="input-group">
-                <input type="text" id="redotId" value="1579452021" readonly>
-                <button class="copy-btn" onclick="copyText('redotId', this)">
-                    <span class="btn-text">نسخ</span>
-                    <span class="icon">📋</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="copy-box">
-            <span class="box-label">نوع الحساب:</span>
-            <div class="input-group">
-                <input type="text" id="accountType" value="RedotPay Direct Transfer" readonly>
-                <button class="copy-btn" onclick="copyText('accountType', this)">
-                    <span class="btn-text">نسخ</span>
-                    <span class="icon">📋</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-<div class="order-form-container">
-    <div class="payment-card order-card">
-        <div class="payment-header">
-            <span class="payment-icon">🚀</span>
-            <h3>تأكيد الطلب وإرسال الوصل</h3>
-        </div>
-
-        <form id="orderForm">
-
-            <div class="input-group">
-    <label for="orderPackage" style="color: #00f2fe; display: block; margin-bottom: 5px; text-align: right;">اختر الباقة التي قمت بدفع ثمنها:</label>
-    <select id="orderPackage" required style="width: 100%; padding: 0.8rem; border-radius: 12px; background: rgba(10, 10, 20, 0.9); color: white; border: 1px solid rgba(0, 242, 254, 0.3); text-align: right; direction: rtl;">
-        <option value="">-- اختر الباقة --</option>
-    </select>
-</div>
-
-            <div class="copy-box">
-    <span class="box-label">المنتج المراد شحنه:</span>
-    <div class="input-group">
-        <input type="text" id="displayGameName" readonly style="color: #00f2fe; text-align: center;">
-    </div>
-</div>
-
-            <div class="copy-box">
-                <span class="box-label">معرف اللاعب (Player ID) أو الإيميل:</span>
-                <div class="input-group">
-                    <input type="text" id="orderPlayerId" placeholder="اكتب الـ ID هنا..." required style="text-align: right;">
-                </div>
-            </div>
-
-            <div class="copy-box">
-                <span class="box-label">ارفع لقطة شاشة لوصل الدفع (Capture):</span>
-                <div class="file-upload-group">
-                    <input type="file" id="receiptFile" accept="image/*" required>
-                    <label for="receiptFile" class="file-label">
-                        <span class="upload-icon">📁</span>
-                        <span class="upload-text">اختر صورة الوصل</span>
-                    </label>
-                </div>
-                <div id="filePreview" class="file-preview hidden"></div>
-            </div>
-
-            <button type="submit" class="submit-order-btn">
-                <span class="btn-text">تأكيد وشحن الطلب الآن 🔥</span>
-            </button>
-        </form>
-    </div>
-</div>
-
-
-<div class="tracker-container">
-    <h3 class="tracker-title">🚥 تتبع حالة طلبك </h3>
-    <p class="tracker-subtitle">أدخل معرف اللاعب (ID) الخاص بك لمعرفة وضعية شحن طلبك فوراً</p>
-    
-    <div class="tracker-search-box">
-        <input type="text" id="trackPlayerId" placeholder="أدخل الـ ID هنا..." required>
-        <button id="btnTrackOrder" class="track-btn">
-            <span class="btn-text">بحث 🔍</span>
-        </button>
-    </div>
-
-    <div id="trackerResult" class="tracker-result hidden">
-        <div class="result-card">
-            <p>اسم اللعبة: <span id="resGameName">--</span></p>
-            <p>معرف اللاعب: <span id="resPlayerId">--</span></p>
-            <p>حالة الشحن حالياً: <span id="resStatus" class="status-badge">--</span></p>
-            <p class="status-time">آخر تحديث: <span id="resTime">--</span></p>
-        </div>
-    </div>
-</div>
-
-
-</div>
-
-                    <div class="order-section">
-                        <p class="order-instruction">Ready to order? Choose your preferred contact method</p>
-                        <div class="order-buttons">
-                            <button id="telegramBtn" class="order-btn telegram-btn">
-                                <svg class="btn-icon" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M9.78 18.65l.28-4.23l7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3L3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
-                                </svg>
-                                Order via Telegram
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p class="footer-text">
-                    <strong class="store-name">DROXO Store</strong> - Based in Blida, Algeria
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-    
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('sw.js') 
-            .then(reg => console.log('Droxo PWA Ready!'))
-            .catch(err => console.log('PWA Error: ', err));
-        });
-      }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <script src="script.js"></script>
+  <!-- External JavaScript -->
+  <script src="app.js"></script>
 </body>
-
 </html>
-
-
-<div class="add-feedback-box">
-    <h3>شاركنا تجربتك مع DROXO المتجر متجرك! ✍️</h3>
-    <form id="feedbackForm">
-        <div class="form-row">
-            <input type="text" id="fbName" placeholder="إسمك الكامل" required>
-            <input type="text" id="fbCity" placeholder="الولاية (مثلاً: البليدة)" required>
-        </div>
-        
-        <div class="rating-select">
-            <span>تقييمك للمتجر:</span>
-            <select id="fbStars">
-                <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐ (ممتاز)</option>
-                <option value="⭐⭐⭐⭐">⭐⭐⭐⭐ (جيد جداً)</option>
-                <option value="⭐⭐⭐">⭐⭐⭐ (متوسط)</option>
-            </select>
-        </div>
-
-        <textarea id="fbText" rows="3" placeholder="اكتب رأيك هنا بكل صراحة..." required></textarea>
-        
-        <button type="submit" class="submit-fb-btn">إرسال الرأي وتحديث القائمة القائمة ✨</button>
-    </form>
-</div>
-
-
-
-
-
-
