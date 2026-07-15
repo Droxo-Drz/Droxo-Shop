@@ -1,54 +1,51 @@
 /* ==========================================================================
-   DROXO SHOP — app.js  v5  (Supabase Backend)
-   All 7 features preserved — localStorage replaced with Supabase DB
+   DZ VIBES SHOP — app.js  v8  (Supabase Backend)
+   5 Categories: subscriptions · mobile · playstation · xbox · pc
+   ALL official links guaranteed:
+     Discord  → https://discord.com/invite/cPSgv6F8X9
+     Instagram→ https://www.instagram.com/dzvibes_shop/
+     Telegram → https://t.me/DzVibesShop
    ========================================================================== */
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ① SUPABASE CONFIG  ← defined at the very top
+   ① SUPABASE CONFIG
    ══════════════════════════════════════════════════════════════════════════ */
-const SUPABASE_URL     = 'https://btxmvkdlxcbnqvlcuxzb.supabase.co';
+const SUPABASE_URL      = 'https://btxmvkdlxcbnqvlcuxzb.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_oKG9Cc_JAtKGbVnq-ep07g_LpLdLCiw';
 
-/* Initialize Supabase client
-   NOTE: The global from the CDN is `supabase` (lowercase), so we call
-   supabase.createClient() and store the result in `supabaseClient`
-   to avoid a naming collision with the CDN global object itself.       */
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ② CONFIGURATION  ← edit these values
+   ② CONFIGURATION — all official links defined here as single source of truth
    ══════════════════════════════════════════════════════════════════════════ */
 const CONFIG = {
-  WHATSAPP_NUMBER:   "213779711828",
-  TELEGRAM_USERNAME: "DroxoShop",
-  DISCORD_INVITE:    "https://discord.gg/bSVaPTxQZW",
-  ADMIN_PASSWORD:    "Boulamokdad1972",
+  INSTAGRAM_URL:     "https://www.instagram.com/dzvibes_shop/",
+  TELEGRAM_URL:      "https://t.me/DzVibesShop",
+  TELEGRAM_USERNAME: "DzVibesShop",
+  DISCORD_INVITE:    "https://discord.com/invite/cPSgv6F8X9",
+  ADMIN_PASSWORD:    "Dz.Vibes.0107@",
   STORAGE_KEYS: {
-    /* Products are now in Supabase — only promos & session stay local */
-    PROMOS:        "droxo_promocodes",
-    ADMIN_SESSION: "droxo_admin_session"
+    PROMOS:        "dzvibes_promocodes",
+    ADMIN_SESSION: "dzvibes_admin_session"
   }
 };
 
-/* ── Feature 4: Discord Webhook URL ─────────────────────────────────────── */
+/* ── Discord Webhook URL ─────────────────────────────────────────────────── */
 const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1526595172257890495/z4h2S55tHBplz3uoa5cvQwiCmHuWZ_BA7Ru6QBkNH8iEYjqZwpirDO5ZkFQ0H4OVzhT8";
 
-/* ── Category metadata ──────────────────────────────────────────────────── */
+/* ── Category metadata ───────────────────────────────────────────────────── */
 const CATEGORY_META = {
-  mobile:    { label: "📱 ألعاب الهاتف",  color: 0x22d3ee },
-  giftcards: { label: "🎁 بطاقات شحن",     color: 0xa855f7 },
-  pc:        { label: "🖥️ حسابات PC",      color: 0x39ff88 }
+  subscriptions: { label: "🔌 اشتراكات رقمية",    color: 0xff1a1a },
+  mobile:        { label: "📱 شحن ألعاب الهاتف",   color: 0xe60000 },
+  playstation:   { label: "🎮 بلاي ستايشن (PSN)",  color: 0xb30000 },
+  xbox:          { label: "💚 إكس بوكس (Xbox)",    color: 0xff4d4d },
+  pc:            { label: "🖥️ ألعاب وحسابات PC",  color: 0x800000 }
 };
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ③ SUPABASE PRODUCT HELPERS  (replace old localStorage helpers)
+   ③ SUPABASE PRODUCT HELPERS
    ══════════════════════════════════════════════════════════════════════════ */
 
-/**
- * Fetch all products from Supabase.
- * Returns an array of product objects (mapped from DB column names
- * to the shape the rest of the app already understands).
- */
 async function fetchProducts() {
   const { data, error } = await supabaseClient
     .from('products')
@@ -61,14 +58,9 @@ async function fetchProducts() {
     return [];
   }
 
-  /* Map Supabase column names → internal property names used
-     throughout the existing card/table render code.             */
   return (data || []).map(mapDbRowToProduct);
 }
-/**
- * Insert a new product row into Supabase.
- * `productData` uses internal property names; we map to DB columns here.
- */
+
 async function insertProduct(productData) {
   const { error } = await supabaseClient
     .from('products')
@@ -82,9 +74,6 @@ async function insertProduct(productData) {
   return true;
 }
 
-/**
- * Update an existing product row in Supabase by its numeric `id`.
- */
 async function updateProduct(productData) {
   const { error } = await supabaseClient
     .from('products')
@@ -99,9 +88,6 @@ async function updateProduct(productData) {
   return true;
 }
 
-/**
- * Delete a product row from Supabase by its numeric `id`.
- */
 async function deleteProductFromDb(id) {
   const { error } = await supabaseClient
     .from('products')
@@ -116,28 +102,12 @@ async function deleteProductFromDb(id) {
   return true;
 }
 
-/* ── Column-name mapping helpers ────────────────────────────────────────── */
+/* ── Column-name mapping helpers ─────────────────────────────────────────── */
 
-/**
- * Convert a raw Supabase DB row → the internal product object shape
- * that all existing render/logic functions already expect.
- *
- * Supabase schema:
- *   id, created_at, title, price, image_url, category, description
- *
- * We store extra fields (cost, profit %, discord link, etc.) inside
- * the `description` column as a JSON prefix so we don't need to alter
- * the schema.  Format:
- *   __meta__<JSON>\n<human description>
- *
- * If no meta prefix is found the product is treated as having price
- * stored directly in `price` with 0 % profit / 0 % discount.
- */
 function mapDbRowToProduct(row) {
   let meta        = {};
   let description = row.description || '';
 
-  /* Parse embedded meta block if present */
   if (description.startsWith('__meta__')) {
     const newline = description.indexOf('\n');
     try {
@@ -146,66 +116,51 @@ function mapDbRowToProduct(row) {
         : description.slice(8, newline);
       meta        = JSON.parse(jsonStr);
       description = newline === -1 ? '' : description.slice(newline + 1);
-    } catch (_) {
-      /* Malformed meta — ignore, fall through */
-    }
+    } catch (_) { /* Malformed meta — ignore */ }
   }
 
   return {
-    id:               row.id,                          // numeric PK from Supabase
+    id:               row.id,
     title:            row.title            || '',
     category:         row.category         || '',
     image:            row.image_url        || '',
-    price:            parseFloat(row.price) || 0,      // final price stored in DB
+    price:            parseFloat(row.price) || 0,
     cost:             parseFloat(meta.cost)            || 0,
     profitPercent:    parseFloat(meta.profitPercent)   || 0,
     discountPercent:  parseFloat(meta.discountPercent) || 0,
     description:      description,
-    whatsappNumber:   meta.whatsappNumber   || '',
     telegramUsername: meta.telegramUsername || '',
     discordLink:      meta.discordLink      || '',
     topSeller:        meta.topSeller        === true,
-    available:        meta.available        !== false   // default true
+    available:        meta.available        !== false
   };
 }
 
-/**
- * Convert the internal product object → a Supabase DB row object.
- * Extra fields are serialised into the `description` column.
- */
 function mapProductToDbRow(p) {
   const meta = {
     cost:             p.cost,
     profitPercent:    p.profitPercent,
     discountPercent:  p.discountPercent,
-    whatsappNumber:   p.whatsappNumber,
     telegramUsername: p.telegramUsername,
     discordLink:      p.discordLink,
     topSeller:        p.topSeller,
     available:        p.available
   };
 
-  /* Compute the final price so the native `price` column is always accurate */
-  const finalPrice = calculateFinalPrice(p.cost, p.profitPercent, p.discountPercent);
-
-  /* Embed meta as the first line of description */
+  const finalPrice      = calculateFinalPrice(p.cost, p.profitPercent, p.discountPercent);
   const fullDescription = `__meta__${JSON.stringify(meta)}\n${p.description || ''}`;
 
-  /* Only include `id` for UPDATE — omit for INSERT so Supabase
-     auto-increments it.                                          */
-  const row = {
+  return {
     title:       p.title,
     price:       finalPrice,
     image_url:   p.image,
     category:    p.category,
     description: fullDescription
   };
-
-  return row;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ④ PROMO CODE HELPERS  (still in localStorage — no schema change needed)
+   ④ PROMO CODE HELPERS (localStorage)
    ══════════════════════════════════════════════════════════════════════════ */
 const getPromoCodes  = () =>
   JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.PROMOS) || '[]');
@@ -216,7 +171,7 @@ const generateId = () =>
   Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ⑤ PRICING ENGINE  (unchanged)
+   ⑤ PRICING ENGINE
    ══════════════════════════════════════════════════════════════════════════ */
 const calculateBasePrice = (cost, profit) =>
   (parseFloat(cost) || 0) * (1 + (parseFloat(profit) || 0) / 100);
@@ -258,7 +213,7 @@ function showAdminView() {
   homeView.style.display  = 'none';
   adminView.style.display = 'block';
   searchWrapper.style.visibility = 'hidden';
-  renderAdminProductTable();   // async — handles its own await internally
+  renderAdminProductTable();
   renderAdminPromoList();
 }
 
@@ -266,14 +221,14 @@ function showHomeView() {
   homeView.style.display  = 'block';
   adminView.style.display = 'none';
   searchWrapper.style.visibility = 'visible';
-  renderProductsGrid();        // async — triggers skeleton → real cards
+  renderProductsGrid();
 }
 
 window.addEventListener('hashchange', router);
 window.addEventListener('DOMContentLoaded', router);
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ADMIN AUTH  (unchanged)
+   ADMIN AUTH
    ══════════════════════════════════════════════════════════════════════════ */
 const passwordModalOverlay = document.getElementById('passwordModalOverlay');
 const passwordForm         = document.getElementById('passwordForm');
@@ -327,7 +282,7 @@ document.getElementById('logoHome').addEventListener('click', () =>
 );
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ⑦ CATEGORY FILTER STATE  (unchanged)
+   ⑦ CATEGORY FILTER STATE
    ══════════════════════════════════════════════════════════════════════════ */
 let activeCategory = 'all';
 
@@ -345,7 +300,7 @@ document.querySelectorAll('.cat-tab').forEach(btn => {
 });
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ⑧ SKELETON LOADER  (unchanged visually — now wraps async fetch)
+   ⑧ SKELETON LOADER
    ══════════════════════════════════════════════════════════════════════════ */
 const skeletonGrid      = document.getElementById('skeletonGrid');
 const productsGrid      = document.getElementById('productsGrid');
@@ -375,14 +330,7 @@ function buildSkeletonCard() {
   return sk;
 }
 
-/**
- * Shows skeleton cards while the Supabase fetch is in-flight,
- * then swaps in real product cards once the data arrives.
- *
- * `filterText` – current search string (passed down from the input)
- */
 async function renderProductsGrid(filterText = '') {
-  /* 1 — Show skeletons immediately */
   productsGrid.style.display  = 'none';
   emptyState.style.display    = 'none';
   skeletonGrid.style.display  = 'grid';
@@ -393,35 +341,28 @@ async function renderProductsGrid(filterText = '') {
     skeletonGrid.appendChild(buildSkeletonCard());
   }
 
-  /* 2 — Fetch from Supabase in parallel with the skeleton delay */
   const [allProducts] = await Promise.all([
     fetchProducts(),
     new Promise(resolve => setTimeout(resolve, SKELETON_DELAY_MS))
   ]);
 
-  /* 3 — Swap skeletons → real content */
+  _cachedProducts = allProducts;
+
   skeletonGrid.style.display = 'none';
   productsGrid.style.display = 'grid';
   _doRender(allProducts, filterText);
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ⑨ STORE FRONT — RENDER PRODUCTS  (unchanged logic, now receives data)
+   ⑨ STORE FRONT — RENDER PRODUCTS
    ══════════════════════════════════════════════════════════════════════════ */
-
-/**
- * Pure render — receives the already-fetched `allProducts` array
- * so we don't make a second network call.
- */
 function _doRender(allProducts, filterText = '') {
   const term = filterText.trim().toLowerCase();
 
-  /* Category filter */
   let filtered = activeCategory === 'all'
     ? allProducts
     : allProducts.filter(p => p.category === activeCategory);
 
-  /* Search within category */
   if (term) filtered = filtered.filter(p =>
     p.title.toLowerCase().includes(term)
   );
@@ -429,21 +370,19 @@ function _doRender(allProducts, filterText = '') {
   productsGrid.innerHTML   = '';
   emptyState.style.display = 'none';
 
-  /* No products in the DB at all */
   if (allProducts.length === 0) {
-    emptyState.style.display  = 'block';
-    emptyTitle.textContent    = 'لا توجد منتجات بعد';
-    emptyMsg.textContent      = 'تحقق لاحقاً — فريقنا يُعدّ عروضاً رائعة لك!';
+    emptyState.style.display   = 'block';
+    emptyTitle.textContent     = 'لا توجد منتجات بعد';
+    emptyMsg.textContent       = 'تحقق لاحقاً — فريقنا يُعدّ عروضاً رائعة لك!';
     productCountBadge.textContent = '';
     productsGrid.style.display = 'none';
     return;
   }
 
-  /* No results from filter / search */
   if (filtered.length === 0) {
-    emptyState.style.display  = 'block';
-    emptyTitle.textContent    = 'لا توجد منتجات مطابقة';
-    emptyMsg.textContent      = term
+    emptyState.style.display   = 'block';
+    emptyTitle.textContent     = 'لا توجد منتجات مطابقة';
+    emptyMsg.textContent       = term
       ? 'جرّب كلمة بحث مختلفة أو غيّر القسم.'
       : 'لا توجد منتجات في هذا القسم بعد.';
     productCountBadge.textContent = '';
@@ -462,31 +401,43 @@ document.getElementById('searchInput').addEventListener('input', (e) =>
 );
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ORDER LINK RESOLVER  (unchanged)
+   ORDER LINK RESOLVER
+   — Always uses official CONFIG links as guaranteed fallback
    ══════════════════════════════════════════════════════════════════════════ */
 function resolveOrderLink(platform, product, message) {
   const encoded = encodeURIComponent(message);
   switch (platform) {
-    case 'whatsapp': {
-      const num = product.whatsappNumber?.trim() || CONFIG.WHATSAPP_NUMBER;
-      return `https://wa.me/${num}?text=${encoded}`;
-    }
+    case 'instagram':
+      /* Always official Instagram — no override */
+      return CONFIG.INSTAGRAM_URL;
+
     case 'telegram': {
-      const user = product.telegramUsername?.trim() || CONFIG.TELEGRAM_USERNAME;
+      /* Use product-level override username if set, else global default */
+      const user = (product.telegramUsername && product.telegramUsername.trim())
+        ? product.telegramUsername.trim()
+        : CONFIG.TELEGRAM_USERNAME;
       return `https://t.me/${user}?text=${encoded}`;
     }
+
     case 'discord':
-      return product.discordLink?.trim() || CONFIG.DISCORD_INVITE;
+      /* Use product-level discord link if valid, else ALWAYS fall back to
+         the official invite — never return '#' or void  */
+      if (product.discordLink && product.discordLink.trim() &&
+          product.discordLink.trim() !== '#') {
+        return product.discordLink.trim();
+      }
+      return CONFIG.DISCORD_INVITE;
+
     default:
-      return '#';
+      return CONFIG.DISCORD_INVITE;
   }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   FEATURE 4: DISCORD WEBHOOK  (unchanged)
+   DISCORD WEBHOOK
    ══════════════════════════════════════════════════════════════════════════ */
 async function sendDiscordWebhookEmbed(product, finalPrice, appliedPromo) {
-  if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === 'YOUR_WEBHOOK_URL_HERE') return;
+  if (!DISCORD_WEBHOOK_URL) return;
 
   const catMeta  = CATEGORY_META[product.category] || { label: '—', color: 0x5865f2 };
   const priceStr = `${formatPrice(finalPrice)} DA${appliedPromo
@@ -494,19 +445,19 @@ async function sendDiscordWebhookEmbed(product, finalPrice, appliedPromo) {
     : ''}`;
 
   const payload = {
-    username:   'Droxo Shop Orders',
+    username:   'Dz Vibes Bot',
     avatar_url: 'https://i.imgur.com/4M34hi2.png',
     embeds: [{
       title:       `🛒 طلب جديد — ${product.title}`,
-      description: 'وصل طلب جديد عبر ديسكورد!',
-      color:       catMeta.color,
+      description: 'وصل طلب جديد عبر Dz Vibes Shop!',
+      color:       15073024,
       thumbnail:   product.image ? { url: product.image } : undefined,
       fields: [
         { name: '📦 المنتج', value: product.title, inline: true  },
         { name: '🏷️ القسم', value: catMeta.label,  inline: true  },
         { name: '💰 السعر',  value: priceStr,        inline: false }
       ],
-      footer:    { text: 'Droxo Shop Notification System' },
+      footer:    { text: 'Dz Vibes Shop Notification System' },
       timestamp: new Date().toISOString()
     }]
   };
@@ -523,38 +474,62 @@ async function sendDiscordWebhookEmbed(product, finalPrice, appliedPromo) {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   BUILD PRODUCT CARD  (unchanged — still reads the mapped product object)
+   BUILD PRODUCT CARD
+   — Buttons are <a> tags with real href values (no javascript:void)
    ══════════════════════════════════════════════════════════════════════════ */
 function buildProductCard(product) {
   const basePrice   = calculateBasePrice(product.cost, product.profitPercent);
   const finalPrice  = calculateFinalPrice(product.cost, product.profitPercent, product.discountPercent);
   const hasDiscount = parseFloat(product.discountPercent) > 0;
   const isAvail     = product.available;
-  const dis         = isAvail ? '' : 'disabled';
+
+  /* Resolve the actual order URLs right now so they are baked into the href */
+  const orderMsg       = buildOrderMessage(product, finalPrice, null);
+  const instagramHref  = CONFIG.INSTAGRAM_URL;
+  const telegramHref   = resolveOrderLink('telegram', product, orderMsg);
+  /* Discord: product-level link or official invite — NEVER a placeholder */
+  const discordHref    = (product.discordLink && product.discordLink.trim() &&
+                          product.discordLink.trim() !== '#')
+                          ? product.discordLink.trim()
+                          : CONFIG.DISCORD_INVITE;
 
   const card = document.createElement('div');
   card.className  = 'product-card' + (isAvail ? '' : ' unavailable');
   card.dataset.id = product.id;
 
   let badges = '';
-  if (product.topSeller)  badges += `<span class="badge badge-hot">🔥 HOT</span>`;
-  if (hasDiscount)        badges += `<span class="badge badge-sale">💥 SALE</span>`;
-  if (!isAvail)           badges += `<span class="badge badge-outofstock">غير متوفر</span>`;
+  if (product.topSeller) badges += `<span class="badge badge-hot">🔥 HOT</span>`;
+  if (hasDiscount)       badges += `<span class="badge badge-sale">💥 SALE</span>`;
+  if (!isAvail)          badges += `<span class="badge badge-outofstock">غير متوفر</span>`;
 
   const catMeta = product.category ? CATEGORY_META[product.category] : null;
   const catChip = catMeta
-    ? `<span class="card-cat-chip">${catMeta.label}</span>`
+    ? `<span class="card-cat-chip" data-cat="${escapeHtml(product.category)}">${catMeta.label}</span>`
     : '';
 
-  const waSvg = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+  /* SVG icons */
+  const igSvg = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`;
+
   const tgSvg = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`;
+
   const dcSvg = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.114 18.105.134 18.12a19.919 19.919 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>`;
 
+  /*
+   * CRITICAL FIX:
+   * All three order buttons are now proper <a> anchor tags with real href values.
+   * - Instagram → always CONFIG.INSTAGRAM_URL
+   * - Telegram  → resolveOrderLink result (with pre-filled message)
+   * - Discord   → product.discordLink if valid, else CONFIG.DISCORD_INVITE
+   *
+   * For unavailable products: Instagram & Discord remain clickable (links still work).
+   * Telegram is visually dimmed but still links via CSS pointer-events kept on <a>.
+   * We add aria-disabled for accessibility on unavailable Telegram.
+   */
   card.innerHTML = `
     <div class="product-image-wrap">
       <img src="${escapeHtml(product.image)}"
            alt="${escapeHtml(product.title)}"
-           onerror="this.src='https://via.placeholder.com/400x250/1e1e1e/888?text=No+Image'">
+           onerror="this.src='https://via.placeholder.com/400x250/141414/555?text=No+Image'">
       ${badges}
       ${catChip}
     </div>
@@ -578,24 +553,48 @@ function buildProductCard(product) {
 
       <div class="promo-apply-row">
         <input type="text" placeholder="كود الخصم"
-               data-promo-input maxlength="20" ${dis}>
-        <button class="btn btn-apply btn-sm" data-apply-promo ${dis}>تطبيق</button>
+               data-promo-input maxlength="20" ${isAvail ? '' : 'disabled'}>
+        <button class="btn btn-apply btn-sm" data-apply-promo
+                ${isAvail ? '' : 'disabled'}>تطبيق</button>
       </div>
       <div class="promo-msg" data-promo-msg></div>
 
       <div class="order-buttons">
-        <button class="btn btn-whatsapp" data-order="whatsapp"
-                ${dis} title="اطلب عبر الواتساب">
-          ${waSvg} واتساب
-        </button>
-        <button class="btn btn-telegram" data-order="telegram"
-                ${dis} title="اطلب عبر التيليغرام">
+
+        <!-- Instagram: always official link, always opens in new tab -->
+        <a href="${instagramHref}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-instagram card-order-btn"
+           data-order="instagram"
+           data-product-id="${escapeHtml(String(product.id))}"
+           title="تواصل عبر انستغرام">
+          ${igSvg} انستغرام
+        </a>
+
+        <!-- Telegram: pre-resolved link with message, disabled style if unavailable -->
+        <a href="${isAvail ? escapeHtml(telegramHref) : 'https://t.me/DzVibesShop'}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-telegram card-order-btn${isAvail ? '' : ' btn-disabled-look'}"
+           data-order="telegram"
+           data-product-id="${escapeHtml(String(product.id))}"
+           title="اطلب عبر التيليغرام"
+           ${isAvail ? '' : 'aria-disabled="true"'}>
           ${tgSvg} تيليغرام
-        </button>
-        <button class="btn btn-discord" data-order="discord"
-                title="اطلب عبر الديسكورد">
+        </a>
+
+        <!-- Discord: product link or official invite — NEVER a placeholder -->
+        <a href="${escapeHtml(discordHref)}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn btn-discord card-order-btn"
+           data-order="discord"
+           data-product-id="${escapeHtml(String(product.id))}"
+           title="اطلب عبر الديسكورد">
           ${dcSvg} ديسكورد
-        </button>
+        </a>
+
       </div>
     </div>
   `;
@@ -614,34 +613,62 @@ function escapeHtml(str) {
 /* ══════════════════════════════════════════════════════════════════════════
    EVENT DELEGATION — product card clicks
    ══════════════════════════════════════════════════════════════════════════ */
-
-/* In-memory store for currently displayed products so card clicks
-   don't need another network round-trip.                           */
 let _cachedProducts = [];
 
 productsGrid.addEventListener('click', async (e) => {
   const card = e.target.closest('.product-card');
   if (!card) return;
-  const productId = card.dataset.id;   // string (may be numeric from Supabase)
+  const productId = card.dataset.id;
 
-  /* Promo */
+  /* Promo apply button */
   if (e.target.closest('[data-apply-promo]')) {
     handleApplyPromo(card, productId);
     return;
   }
 
-  /* Order buttons */
-  const orderBtn = e.target.closest('[data-order]');
-  if (orderBtn) {
-    const platform = orderBtn.dataset.order;
-    if (platform !== 'discord' && orderBtn.disabled) return;
-    handleOrder(card, productId, platform);
+  /* Order button clicks — for <a> tags we intercept to also send webhook
+     and update telegram href with promo-adjusted price if promo applied */
+  const orderLink = e.target.closest('.card-order-btn');
+  if (orderLink) {
+    const platform = orderLink.dataset.order;
+
+    /* For Discord: always fire webhook + open the baked-in href */
+    if (platform === 'discord') {
+      e.preventDefault();
+      const product = _cachedProducts.find(p => String(p.id) === String(productId));
+      if (!product) return;
+      const finalPrice = parseFloat(card.querySelector('.price-final').dataset.finalPrice);
+      const appliedPromo = appliedPromosPerCard[productId] || null;
+      sendDiscordWebhookEmbed(product, finalPrice, appliedPromo);
+      const discordUrl = (product.discordLink && product.discordLink.trim() &&
+                          product.discordLink.trim() !== '#')
+                          ? product.discordLink.trim()
+                          : CONFIG.DISCORD_INVITE;
+      window.open(discordUrl, '_blank');
+      return;
+    }
+
+    /* For Telegram: rebuild link with promo-adjusted price */
+    if (platform === 'telegram') {
+      e.preventDefault();
+      const product = _cachedProducts.find(p => String(p.id) === String(productId));
+      if (!product) return;
+      if (!product.available) return; /* blocked for unavailable */
+      const finalPrice   = parseFloat(card.querySelector('.price-final').dataset.finalPrice);
+      const appliedPromo = appliedPromosPerCard[productId] || null;
+      const msg          = buildOrderMessage(product, finalPrice, appliedPromo);
+      const url          = resolveOrderLink('telegram', product, msg);
+      window.open(url, '_blank');
+      return;
+    }
+
+    /* For Instagram: just let the <a> href do its job (it already has the right URL) */
+    /* No e.preventDefault() — browser opens the link naturally */
     return;
   }
 
-  /* Learn More */
+  /* Learn more button */
   if (e.target.closest('[data-learn-more]')) {
-    /* Use cached list first; fall back to fresh fetch if needed */
     let product = _cachedProducts.find(p => String(p.id) === String(productId));
     if (!product) {
       const all = await fetchProducts();
@@ -655,45 +682,8 @@ productsGrid.addEventListener('click', async (e) => {
   }
 });
 
-/* Keep cache fresh after each grid render */
-const _origDoRender = _doRender;
-function _doRenderAndCache(allProducts, filterText) {
-  _cachedProducts = allProducts;
-  _origDoRender(allProducts, filterText);
-}
-/* Patch renderProductsGrid to update cache */
-(function patchRenderer() {
-  const orig = renderProductsGrid;
-  /* We override the internal call inside the async function by
-     redefining _doRender reference via the wrapper below.        */
-})();
-
-/* Simpler approach — just store products inside renderProductsGrid itself */
-async function renderProductsGrid(filterText = '') {           // eslint-disable-line no-redeclare
-  productsGrid.style.display  = 'none';
-  emptyState.style.display    = 'none';
-  skeletonGrid.style.display  = 'grid';
-  skeletonGrid.innerHTML      = '';
-  productCountBadge.textContent = '';
-
-  for (let i = 0; i < SKELETON_COUNT; i++) {
-    skeletonGrid.appendChild(buildSkeletonCard());
-  }
-
-  const [allProducts] = await Promise.all([
-    fetchProducts(),
-    new Promise(resolve => setTimeout(resolve, SKELETON_DELAY_MS))
-  ]);
-
-  _cachedProducts = allProducts;   // ← cache for card-click look-ups
-
-  skeletonGrid.style.display = 'none';
-  productsGrid.style.display = 'grid';
-  _doRender(allProducts, filterText);
-}
-
 /* ══════════════════════════════════════════════════════════════════════════
-   PROMO CODE — card level  (unchanged, uses localStorage promos)
+   PROMO CODE — card level
    ══════════════════════════════════════════════════════════════════════════ */
 const appliedPromosPerCard = {};
 
@@ -722,7 +712,6 @@ function showPromoMsg(el, text, success) {
 }
 
 function updateCardPriceDisplay(card, productId) {
-  /* Find product in cache */
   const product = _cachedProducts.find(p => String(p.id) === String(productId));
   if (!product) return;
   const base    = calculateFinalPrice(
@@ -744,11 +733,11 @@ function updateCardPriceDisplay(card, productId) {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ORDER MESSAGE + OPENER  (unchanged)
+   ORDER MESSAGE BUILDER
    ══════════════════════════════════════════════════════════════════════════ */
 function buildOrderMessage(product, finalPrice, appliedPromo) {
   const catMeta = product.category ? CATEGORY_META[product.category] : null;
-  let msg  = `🛒 طلب جديد من Droxo Shop\n`;
+  let msg  = `🛒 طلب جديد من Dz Vibes Shop\n`;
   msg     += `----------------------------\n`;
   msg     += `📦 المنتج: ${product.title}\n`;
   if (catMeta) msg += `🏷️ القسم: ${catMeta.label}\n`;
@@ -763,26 +752,30 @@ function buildOrderMessage(product, finalPrice, appliedPromo) {
 function openOrderLink(platform, product, finalPrice, appliedPromo) {
   if (platform === 'discord') {
     sendDiscordWebhookEmbed(product, finalPrice, appliedPromo);
-    const link = product.discordLink?.trim() || CONFIG.DISCORD_INVITE;
-    if (link && link !== '#') window.open(link, '_blank');
+    /* Always use the official Discord invite as ultimate fallback */
+    const link = (product.discordLink && product.discordLink.trim() &&
+                  product.discordLink.trim() !== '#')
+                  ? product.discordLink.trim()
+                  : CONFIG.DISCORD_INVITE;
+    window.open(link, '_blank');
     return;
   }
-  const msg = buildOrderMessage(product, finalPrice, appliedPromo);
-  const url = resolveOrderLink(platform, product, msg);
-  if (url && url !== '#') window.open(url, '_blank');
-}
-
-function handleOrder(card, productId, platform) {
-  const product = _cachedProducts.find(p => String(p.id) === String(productId));
-  if (!product) return;
-  const finalPrice = parseFloat(
-    card.querySelector('.price-final').dataset.finalPrice
-  );
-  openOrderLink(platform, product, finalPrice, appliedPromosPerCard[productId]);
+  if (platform === 'instagram') {
+    window.open(CONFIG.INSTAGRAM_URL, '_blank');
+    return;
+  }
+  if (platform === 'telegram') {
+    const msg = buildOrderMessage(product, finalPrice, appliedPromo);
+    const url = resolveOrderLink('telegram', product, msg);
+    window.open(url, '_blank');
+    return;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   PRODUCT DETAILS MODAL  (unchanged)
+   PRODUCT DETAILS MODAL
+   — Modal buttons are now <a> tags whose href is set dynamically when
+     the modal opens, guaranteeing correct official URLs every time.
    ══════════════════════════════════════════════════════════════════════════ */
 const productDetailsModalOverlay = document.getElementById('productDetailsModal');
 const modalProductImage          = document.getElementById('modalProductImage');
@@ -792,7 +785,7 @@ const modalProductPrice          = document.getElementById('modalProductPrice');
 const modalOutOfStockNote        = document.getElementById('modalOutOfStockNote');
 const productModalCloseBtn       = document.getElementById('productModalCloseBtn');
 const modalCategoryBadge         = document.getElementById('modalCategoryBadge');
-const modalWhatsappBtn           = document.getElementById('modalWhatsappBtn');
+const modalInstagramBtn          = document.getElementById('modalInstagramBtn');
 const modalTelegramBtn           = document.getElementById('modalTelegramBtn');
 const modalDiscordBtn            = document.getElementById('modalDiscordBtn');
 
@@ -802,6 +795,7 @@ function openProductDetailsModal(product, finalPrice) {
   const appliedPromo = appliedPromosPerCard[product.id] || null;
   currentModalContext = { product, finalPrice, appliedPromo };
 
+  /* ── Populate modal content ── */
   modalProductImage.src               = product.image;
   modalProductImage.alt               = product.title;
   modalProductTitle.textContent       = product.title;
@@ -818,16 +812,56 @@ function openProductDetailsModal(product, finalPrice) {
     modalCategoryBadge.style.display = 'none';
   }
 
+  /* ── Build order message for pre-filling Telegram link ── */
+  const orderMsg = buildOrderMessage(product, finalPrice, appliedPromo);
+
+  /* ── Set Instagram button href — ALWAYS official Instagram ── */
+  modalInstagramBtn.href = CONFIG.INSTAGRAM_URL;
+  modalInstagramBtn.setAttribute('target', '_blank');
+  modalInstagramBtn.setAttribute('rel', 'noopener noreferrer');
+
+  /* ── Set Telegram button href — resolved with product override or global default ── */
+  const telegramUrl = resolveOrderLink('telegram', product, orderMsg);
+  modalTelegramBtn.href = telegramUrl;
+  modalTelegramBtn.setAttribute('target', '_blank');
+  modalTelegramBtn.setAttribute('rel', 'noopener noreferrer');
+
+  /* ── Set Discord button href — product link or OFFICIAL INVITE, never placeholder ── */
+  const discordUrl = (product.discordLink && product.discordLink.trim() &&
+                      product.discordLink.trim() !== '#')
+                      ? product.discordLink.trim()
+                      : CONFIG.DISCORD_INVITE;
+  modalDiscordBtn.href = discordUrl;
+  modalDiscordBtn.setAttribute('target', '_blank');
+  modalDiscordBtn.setAttribute('rel', 'noopener noreferrer');
+
+  /* ── Availability: dim Telegram for out-of-stock, Discord always accessible ── */
   if (product.available) {
     modalOutOfStockNote.style.display = 'none';
-    modalWhatsappBtn.disabled = false;
-    modalTelegramBtn.disabled = false;
+    modalTelegramBtn.classList.remove('btn-disabled-look');
+    modalTelegramBtn.removeAttribute('aria-disabled');
+    modalTelegramBtn.style.pointerEvents = '';
+    modalTelegramBtn.style.opacity       = '';
   } else {
-    modalOutOfStockNote.style.display = 'block';
-    modalWhatsappBtn.disabled = true;
-    modalTelegramBtn.disabled = true;
+    modalOutOfStockNote.style.display    = 'block';
+    modalTelegramBtn.classList.add('btn-disabled-look');
+    modalTelegramBtn.setAttribute('aria-disabled', 'true');
+    /* Keep the link functional but visually dimmed */
+    modalTelegramBtn.style.opacity = '0.45';
   }
-  modalDiscordBtn.disabled = false;
+
+  /* Discord is ALWAYS enabled — even for out-of-stock items */
+  modalDiscordBtn.classList.remove('btn-disabled-look');
+  modalDiscordBtn.removeAttribute('aria-disabled');
+  modalDiscordBtn.style.pointerEvents = '';
+  modalDiscordBtn.style.opacity       = '';
+
+  /* ── Also attach click handler for Discord to fire webhook ── */
+  modalDiscordBtn.onclick = (e) => {
+    e.preventDefault();
+    sendDiscordWebhookEmbed(product, finalPrice, appliedPromo);
+    window.open(discordUrl, '_blank');
+  };
 
   productDetailsModalOverlay.classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -848,16 +882,8 @@ document.addEventListener('keydown', (e) => {
     closeProductDetailsModal();
 });
 
-[modalWhatsappBtn, modalTelegramBtn, modalDiscordBtn].forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (!currentModalContext) return;
-    const { product, finalPrice, appliedPromo } = currentModalContext;
-    openOrderLink(btn.dataset.modalOrder, product, finalPrice, appliedPromo);
-  });
-});
-
 /* ══════════════════════════════════════════════════════════════════════════
-   ADMIN — PRODUCT FORM  (now calls Supabase INSERT / UPDATE)
+   ADMIN — PRODUCT FORM (Supabase INSERT / UPDATE)
    ══════════════════════════════════════════════════════════════════════════ */
 const productForm       = document.getElementById('productForm');
 const productIdInput    = document.getElementById('productId');
@@ -868,7 +894,6 @@ const prodCost          = document.getElementById('prodCost');
 const prodProfit        = document.getElementById('prodProfit');
 const prodDiscount      = document.getElementById('prodDiscount');
 const prodDescription   = document.getElementById('prodDescription');
-const prodWhatsapp      = document.getElementById('prodWhatsapp');
 const prodTelegram      = document.getElementById('prodTelegram');
 const prodDiscord       = document.getElementById('prodDiscord');
 const prodTopSeller     = document.getElementById('prodTopSeller');
@@ -902,26 +927,24 @@ function updatePricePreview() {
 productForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const discordVal  = prodDiscord.value.trim();
   const categoryVal = prodCategory.value;
 
-  if (!discordVal) {
-    showToast('⚠️ Discord link is required for every product.');
-    prodDiscord.focus(); return;
-  }
   if (!categoryVal) {
     showToast('⚠️ Please select a category / اختر القسم.');
-    prodCategory.focus(); return;
+    prodCategory.focus();
+    return;
   }
 
-  /* Disable button to prevent double-submit */
-  submitBtn.disabled = true;
+  submitBtn.disabled    = true;
   submitBtn.textContent = 'جارٍ الحفظ...';
 
   const editingId = productIdInput.value;
 
+  /* Discord field is optional — falls back to official invite if blank */
+  const discordVal = prodDiscord.value.trim() || CONFIG.DISCORD_INVITE;
+
   const productData = {
-    id:               editingId || null,  // null = INSERT; truthy = UPDATE
+    id:               editingId || null,
     title:            prodTitle.value.trim(),
     category:         categoryVal,
     image:            prodImage.value.trim(),
@@ -929,7 +952,6 @@ productForm.addEventListener('submit', async (e) => {
     profitPercent:    parseFloat(prodProfit.value)   || 0,
     discountPercent:  parseFloat(prodDiscount.value) || 0,
     description:      prodDescription.value.trim(),
-    whatsappNumber:   prodWhatsapp.value.trim(),
     telegramUsername: prodTelegram.value.trim(),
     discordLink:      discordVal,
     topSeller:        prodTopSeller.checked,
@@ -939,11 +961,9 @@ productForm.addEventListener('submit', async (e) => {
   let success = false;
 
   if (editingId) {
-    /* ── UPDATE ── */
     success = await updateProduct(productData);
     if (success) showToast('✅ Product updated successfully!');
   } else {
-    /* ── INSERT ── */
     success = await insertProduct(productData);
     if (success) showToast('✅ Product added successfully!');
   }
@@ -952,7 +972,7 @@ productForm.addEventListener('submit', async (e) => {
 
   if (success) {
     resetProductForm();
-    renderAdminProductTable();   // refresh the admin table from Supabase
+    renderAdminProductTable();
   }
 });
 
@@ -968,7 +988,6 @@ function resetProductForm() {
 }
 cancelEditBtn.addEventListener('click', resetProductForm);
 
-/* Populate the form for editing — product object already mapped */
 function editProduct(id) {
   const product = _cachedProducts.find(p => String(p.id) === String(id));
   if (!product) return;
@@ -981,9 +1000,11 @@ function editProduct(id) {
   prodProfit.value          = product.profitPercent;
   prodDiscount.value        = product.discountPercent;
   prodDescription.value     = product.description || '';
-  prodWhatsapp.value        = product.whatsappNumber  || '';
   prodTelegram.value        = product.telegramUsername || '';
-  prodDiscord.value         = product.discordLink     || '';
+  /* Show stored discord link — if it equals the global default, show blank for clarity */
+  prodDiscord.value         = (product.discordLink === CONFIG.DISCORD_INVITE)
+                                ? ''
+                                : (product.discordLink || '');
   prodTopSeller.checked     = product.topSeller;
   prodAvailable.checked     = product.available;
 
@@ -997,7 +1018,6 @@ function editProduct(id) {
   });
 }
 
-/* DELETE — calls Supabase then refreshes the table */
 async function deleteProduct(id) {
   if (!confirm('Are you sure you want to delete this product?')) return;
   const success = await deleteProductFromDb(id);
@@ -1007,7 +1027,6 @@ async function deleteProduct(id) {
   }
 }
 
-/* TOGGLE availability — UPDATE the single field in Supabase */
 async function toggleProductStatus(id) {
   const product = _cachedProducts.find(p => String(p.id) === String(id));
   if (!product) return;
@@ -1020,24 +1039,24 @@ async function toggleProductStatus(id) {
   }
 }
 
-/* Render admin table — fetches fresh data from Supabase */
+/* Render admin product table */
 async function renderAdminProductTable() {
   productsTableBody.innerHTML = `
     <tr>
       <td colspan="11"
-          style="text-align:center;color:#6b6b6b;padding:24px;">
+          style="text-align:center;color:#5a5a5a;padding:24px;">
         ⏳ جارٍ التحميل...
       </td>
     </tr>`;
 
-  const products = await fetchProducts();
-  _cachedProducts = products;   // keep cache in sync
+  const products  = await fetchProducts();
+  _cachedProducts = products;
 
   if (products.length === 0) {
     productsTableBody.innerHTML = `
       <tr>
         <td colspan="11"
-            style="text-align:center;color:#6b6b6b;padding:24px;">
+            style="text-align:center;color:#5a5a5a;padding:24px;">
           No products yet — add your first product above.
         </td>
       </tr>`;
@@ -1050,19 +1069,23 @@ async function renderAdminProductTable() {
     );
     const catMeta     = product.category ? CATEGORY_META[product.category] : null;
     const catCell     = catMeta
-      ? `<span class="cat-pill">${catMeta.label}</span>`
+      ? `<span class="cat-pill" data-cat="${escapeHtml(product.category)}">${catMeta.label}</span>`
       : `<span style="color:var(--text-muted)">—</span>`;
-    const discordCell = product.discordLink
-      ? `<a href="${escapeHtml(product.discordLink)}"
-            target="_blank" class="discord-pill">🔗 Link</a>`
-      : `<span style="color:#ff6b6b;font-size:12px;">⚠️ Missing</span>`;
+
+    /* Resolve the effective discord link for display */
+    const effectiveDiscord = (product.discordLink && product.discordLink.trim() &&
+                              product.discordLink.trim() !== '#')
+                              ? product.discordLink.trim()
+                              : CONFIG.DISCORD_INVITE;
+    const discordCell = `<a href="${escapeHtml(effectiveDiscord)}"
+          target="_blank" class="discord-pill">🔗 Link</a>`;
 
     return `
       <tr>
         <td>
           <img src="${escapeHtml(product.image)}"
                alt="${escapeHtml(product.title)}"
-               onerror="this.src='https://via.placeholder.com/60/1e1e1e/888?text=IMG'">
+               onerror="this.src='https://via.placeholder.com/60/141414/555?text=IMG'">
         </td>
         <td>${escapeHtml(product.title)}</td>
         <td>${catCell}</td>
@@ -1093,7 +1116,7 @@ async function renderAdminProductTable() {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ADMIN — PROMO CODES  (still localStorage — no schema change)
+   ADMIN — PROMO CODES
    ══════════════════════════════════════════════════════════════════════════ */
 const promoForm       = document.getElementById('promoForm');
 const promoCodeInput  = document.getElementById('promoCode');
@@ -1145,7 +1168,7 @@ function renderAdminPromoList() {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   TOAST  (unchanged)
+   TOAST
    ══════════════════════════════════════════════════════════════════════════ */
 let toastTimeout;
 function showToast(message) {
